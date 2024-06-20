@@ -1,20 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+import { SettingsProvider } from './src/context';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppState>
+      <View style={{ marginTop: 50 }}>
+        <Text>Hola mundo</Text>
+      </View>
+    </AppState>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const AppState = ({children}: { children: React.JSX.Element | React.JSX.Element[] }) => {
+  return (
+    <SettingsProvider>
+      { children }
+    </SettingsProvider>
+  );
+}
