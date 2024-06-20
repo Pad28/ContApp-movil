@@ -19,7 +19,7 @@ export const settingsInitialState: SettingsState  = {
     developmentSettings: false,
 }
 
-// Como se ve el objeto que servira el contexto de ajustes
+// Como se ve el objeto que sera servido por el contexto de ajustes
 export interface SettingsContextProps {
     settingsState:  SettingsState; // Atributos que contiene el contexto de ajustes
     changeFontSize: (incrementer: number) => void; // Cambiar el tamaño de la letra
@@ -34,7 +34,7 @@ export const SettingsProvider = ({children}: { children: React.JSX.Element | Rea
         checkSettings();
     }, []);
 
-    // Verificar los ajustes previamente giardados por el usuario
+    // Verificar los ajustes previamente guardados por el usuario
     const checkSettings = async() => {
         const fontSize = await AsyncStorage.getItem(SettingsStorageKeys.FONT_SIZE);
         if(fontSize) changeFontSize(parseInt(fontSize));
@@ -43,6 +43,7 @@ export const SettingsProvider = ({children}: { children: React.JSX.Element | Rea
         if(devSettings) changeDevelopmentSettings( devSettings == "true" );
     }
 
+    // Implementación de la fucion de cambio de tamaño de letra definida en la interfaz SettingsContextProps
     const changeFontSize = async(incrementer: number) => {
         const size = settingsState.fontSize + incrementer;
         if(size >= settingsState.fontSizeMax || size <= settingsState.fontSizeMin) return;
@@ -50,6 +51,7 @@ export const SettingsProvider = ({children}: { children: React.JSX.Element | Rea
         dispatch({ type: "changeFontSize", payload: size });
     }
 
+    // Implementación de la fucion de activacion/desactivacion de opciones de desarrollador definida en la interfaz SettingsContextProps
     const changeDevelopmentSettings = async(state: boolean) => {
         await AsyncStorage.setItem(SettingsStorageKeys.DEVELOPMENT_SETTINGS, state + "");
         dispatch({ type: "changeDevelopmentSettings", payload: state });
