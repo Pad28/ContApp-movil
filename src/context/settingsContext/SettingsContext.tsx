@@ -23,7 +23,7 @@ export const settingsInitialState: SettingsState  = {
 export interface SettingsContextProps {
     settingsState:  SettingsState; // Atributos que contiene el contexto de ajustes
     changeFontSize: (incrementer: number) => void; // Cambiar el tamaño de la letra
-    changeDevelopmentSettings: (state: boolean) => void; // Cambiar el valor de las opcione de desarrollador
+    changeDevelopmentSettings: (state: boolean) => void; // Cambiar el valor de las opciones de desarrollador
 }
 
 export const SettingsContext = createContext({} as SettingsContextProps);
