@@ -12,7 +12,7 @@ import { VentanaModal } from "../../components/feedback/Alerta";
 interface Props extends StackScreenProps<RootLoginStackParams, any> {
 }
 
-export const RecoverPassword = ({ navigation }: Props) => {
+export const HomeAlumnoScreen = ({ navigation }: Props) => {
     const [modal, setModal] = useState(false);
     return (
         <View style={{ flex: 1 }} >
@@ -20,11 +20,13 @@ export const RecoverPassword = ({ navigation }: Props) => {
                 <KeyboardAvoidingView>
                     <ScrollView showsHorizontalScrollIndicator={false} >
 
-
-                        <Text style={{margin:15, fontSize:20}}>
-                            Por favor, ingresa la información que se solicita:
+                    <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
+                            Pantalla principal
                         </Text>
-
+                        <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
+                            ¡Bienvenido!
+                        </Text>
+                        
                         <InputIcon
                             style={{ alignSelf: "center", backgroundColor: 'white', marginTop: 20 }}
                             onChangeText={() => { }}
@@ -35,7 +37,7 @@ export const RecoverPassword = ({ navigation }: Props) => {
 
                         <Button
                             style={{ width: 140, alignSelf: "center", marginTop: 80 }}
-                            text="Recuperar"
+                            text="Salir"
                             colorBackground={colors.buttonPrimary}
                             fontColor="white"
                             altura={60}
@@ -45,10 +47,11 @@ export const RecoverPassword = ({ navigation }: Props) => {
                         <VentanaModal
                         visible= {modal}
                         nameIcon="alert-outline"
-                        text="Revisa tu correo electronico institucional para seguir con el proceso de recuperacón de tu contraseña"
+                        text="Esta seguro de cerrar sesión"
                         setVisible={setModal}
                         clickAccept={()=>{navigation.navigate("Login")}}
-                        colorIcon="yellow"
+                        colorIcon="red"
+                        showButtonCancel={true}
 
                         />
 

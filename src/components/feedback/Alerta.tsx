@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from 'react'
 import { Button, Dimensions, Modal, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
-import { colors, globalStyles } from "../theme/Styles";
+import { colors, globalStyles } from "../../theme/globalStyles";
 
 
 
@@ -32,9 +32,17 @@ export const VentanaModal = ( {showButtonCancel = false, clickAccept, colorIcon,
                 <Text style={[ localStyles.textoStyle, {marginBottom: 24} ]} > { text } </Text>
                 <View style={{ flexDirection: 'row' }} >
 
+                    {/* // Cancelar */}
+                    {(showButtonCancel) && (<TouchableOpacity
+                        style={ [localStyles.botonCancel]  }
+                        onPress={() => setVisible(false)}
+                    >
+                        <Text style={[ localStyles.textoStyle, { color: 'white' } ]} >Cerrar</Text>
+                    </TouchableOpacity>)}
+
                     {/* Aceptar */}
                     <TouchableOpacity
-                        style={[ localStyles.botonAccept, { marginRight: 20 } ]}
+                        style={[ localStyles.botonAccept, { marginLeft: 20 } ]}
                         onPress={()=>{
                             setVisible(false)
                             clickAccept()
@@ -43,13 +51,6 @@ export const VentanaModal = ( {showButtonCancel = false, clickAccept, colorIcon,
                         <Text style={[ localStyles.textoStyle, { color: 'white' } ]} >Aceptar</Text>
                     </TouchableOpacity> 
 
-                    {/* // Cancelar */}
-                    {(showButtonCancel) && (<TouchableOpacity
-                        style={ [localStyles.botonCancel]  }
-                        onPress={() => setVisible(false)}
-                    >
-                        <Text style={[ localStyles.textoStyle, { color: 'white' } ]} >Cerrar</Text>
-                    </TouchableOpacity>)}
                 </View>
 
             </View>

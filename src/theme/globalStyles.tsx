@@ -7,7 +7,7 @@ export const colors = {
     backgroundPrimary: "#FEF9D1", //Cremita
     buttonPrimary: "#74022d", //Vino boton
     buttonAccept: "#009929", //Verde
-    buttonCancel: "E83131" //Rojo
+    buttonCancel: "#E83131" //Rojo
 }
 
 export const globalStyles = StyleSheet.create({
