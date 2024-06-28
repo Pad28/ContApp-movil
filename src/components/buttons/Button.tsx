@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { StyleProp, ViewStyle, TouchableOpacity, Text, StyleSheet, TextStyle } from "react-native";
 import React from "react";
-import { colors } from "../theme/globalStyles";
+import { colors } from "../../theme/globalStyles";
 
 
 interface Props {

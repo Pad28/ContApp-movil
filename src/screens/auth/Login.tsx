@@ -1,23 +1,30 @@
 import React from 'react';
 import { Image, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { HeaderApp } from '../components/HeaderApp';
-import { colors, globalStyles } from '../theme/globalStyles';
-import { InputIcon } from '../components/InputIcon';
-import { Button } from '../components/Button';
-import { Link } from '../components/Link';
+import { HeaderApp } from '../../components/HeaderApp';
+import { colors, globalStyles } from '../../theme/globalStyles';
+import { InputIcon } from '../../components/InputIcon';
+import { Button } from '../../components/buttons/Button';
+import { Link } from '../../components/Link';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootLoginStackParams } from '../../navigators/StackNavigator';
 
 
-export const Login = () => {
+interface Props extends StackScreenProps<RootLoginStackParams, any> {
+}
+
+export const Login = ({navigation}:Props) => {
     return (
         <View style={{ flex: 1 }} >
             <View style={globalStyles.container} >
                 <KeyboardAvoidingView>
                     <ScrollView showsHorizontalScrollIndicator={false} >
-                        <HeaderApp titulo='Inicio sesión' height={100} />
+                        {
+                        //<HeaderApp titulo='Inicio sesión' height={100} />
+                        }
 
                         <View style={{ marginTop: 50, flexDirection: 'column', justifyContent: "center" }}>
-                            <Image style={{ marginTop: 15, height: 160, width: 160, alignSelf: "center" }} source={require("../../assets/LogoSinFondo.png")} />
+                            <Image style={{ marginTop: 15, height: 160, width: 160, alignSelf: "center" }} source={require("../../../assets/LogoSinFondo.png")} />
 
 
 
@@ -33,7 +40,7 @@ export const Login = () => {
                                 security = {true} />
 
                             <Link
-                                click={()=>{}}
+                                click={()=>{navigation.navigate('RecoverPassword')}}
                                 text='¿Olvidaste tu contraseña?'
                             />
 
@@ -43,7 +50,7 @@ export const Login = () => {
                                 colorBackground={colors.buttonPrimary}
                                 fontColor="white"
                                 altura={60}
-                                onPress={() => { }}
+                                onPress={() => {navigation.navigate('Home') }}
                             />
                         </View>
 
