@@ -50,7 +50,7 @@ export const Login = ({navigation}:Props) => {
                                 colorBackground={colors.buttonPrimary}
                                 fontColor="white"
                                 altura={60}
-                                onPress={() => {navigation.navigate('Home') }}
+                                onPress={() => {navigation.navigate('BottomTabHomeNavigator') }}
                             />
                         </View>
 
