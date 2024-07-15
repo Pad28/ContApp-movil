@@ -6,7 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Alert, Button, InputIcon } from "../../components";
 
 export const SettingsScreen = () => {
-    const { logOut } = useContext(AuthContext);
+    const { logOut, authState } = useContext(AuthContext);
     const [showAlert, setShowAlert] = useState(false);
 
     return (
@@ -18,7 +18,7 @@ export const SettingsScreen = () => {
                         Pantalla de ajustes
                     </Text>
                     <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                        ¡Modificar datos!
+                        { JSON.stringify(authState, null, 5) }
                     </Text>
                         
                     <InputIcon
