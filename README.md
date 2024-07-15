@@ -8,3 +8,5 @@
 ### Llaves de almacenamineto asincrono
 - FONT_SIZE: Acceder al tamaño de letra guardado por el usuario
 - DEVELOPMENT_SETTINGS: Ver si las opciones de desarrollador estan activas o inactivas
+- USER_AUTHENTICATED: Información del usuario autenticado
+- USER_TOKEN: JWT de usuario autenticado
