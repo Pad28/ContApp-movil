@@ -1,31 +1,24 @@
 import { useContext } from "react";
 import { StyleProp, ViewStyle, TouchableOpacity, Text, StyleSheet, TextStyle } from "react-native";
-import React from "react";
-import { colors } from "../../theme/globalStyles";
+import { colors, widthWindow } from "../../theme/globalStyles";
+import { SettingsContext } from "../../context";
 
 
 interface Props {
     text: string;
     onPress: () => void;
     style?: StyleProp<ViewStyle>;
-    colorBackground?: string;
-    fontColor?: string;
-    borde?: StyleProp<ViewStyle>
-    styleText?: StyleProp<TextStyle>;
-    altura?: number;
 }
 
-export const Button = ({altura, styleText, borde, text, onPress, style, colorBackground = colors.buttonPrimary, fontColor = "black" }: Props) => {
-    
+export const Button = ({ text, onPress, style }: Props) => {
+    const { fontSize } = useContext(SettingsContext).settingsState;
 
     return (
         <TouchableOpacity 
-            style={[ borde, localStyles.container, style, { backgroundColor: colorBackground, height: altura } ]} 
+            style={[ localStyles.container, style ]} 
             onPress={onPress}
         >
-            <Text 
-                style={[ styleText, localStyles.text, { color: fontColor} ]} 
-            >
+            <Text style={[ localStyles.text, { fontSize } ]} >
                 { text }
             </Text>
         </TouchableOpacity>
@@ -36,13 +29,14 @@ const localStyles = StyleSheet.create({
     container: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "red",
-        borderRadius: 8,
-        padding: 10,
-        height: 62,
+        backgroundColor: colors.buttonPrimary,
+        borderRadius: 14,
+        padding: 18,
+        height: "auto",
+        width: widthWindow - 100
     },
     text: {
         fontWeight: "bold",
-        fontSize: 20
+        color: "white"
     }
 });

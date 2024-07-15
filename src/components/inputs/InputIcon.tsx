@@ -1,25 +1,31 @@
 import { useContext, useState } from 'react';
-import { StyleSheet, View, TextInput, StyleProp, ViewStyle } from 'react-native';
+import { StyleSheet, View, TextInput, StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { widthWindow } from '../theme/globalStyles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { colors, widthWindow } from '../../theme/globalStyles';
+import { SettingsContext } from '../../context';
 
 
 interface Props {
-    click?: () => void;
-    margenAbajo?: number;
-    iconName?: string;
+    iconName: string;
     placeholder: string;
     onChangeText: (value: string) => void;
-    tipo?: StyleProp<any>;
     security?: boolean;
     style?: StyleProp<ViewStyle>
     value?: string;
 }
 
-export const InputIcon = ({ value, tipo, click, margenAbajo, onChangeText, placeholder, iconName, security = false, style }: Props) => {
-
+export const InputIcon = (props: Props) => {
+    
+    const { 
+        value, 
+        onChangeText, 
+        placeholder, 
+        iconName, 
+        security = false, 
+        style 
+    } = props;
+    
+    const { fontSize } = useContext(SettingsContext).settingsState;
     const [securityIcon, setSecurityIcon] = useState("eye");
     const [showSecurity, setShowSecurity] = useState(security);
 
@@ -30,30 +36,24 @@ export const InputIcon = ({ value, tipo, click, margenAbajo, onChangeText, place
     }
 
     return (
-        <View style={[style, localStyles.container, { marginBottom: margenAbajo }]} >
-
+        <View style={[style, localStyles.container ]} >
+            <Ionicons name={iconName} size={40} />
             <TextInput
                 value={value}
                 placeholder={placeholder}
                 onChangeText={onChangeText}
                 secureTextEntry={showSecurity}
-                style={[localStyles.input, { fontSize: 20, textAlign: "left" }]}
-                onFocus={click}
-
+                style={[localStyles.input, { fontSize }]}
             />
-            <View style={localStyles.icon}>
-            {(!security) && (<Ionicons name={iconName} size={40} />)
-            }
             {
                 (security) ? (
-                    <TouchableOpacity onPress={handleSecurity} >
+                    <TouchableOpacity onPress={handleSecurity}>
                         <Ionicons name={securityIcon} size={40} />
                     </TouchableOpacity>
                 ) : (
                     <View style={{ width: 40 }} />
                 )
             }
-            </View>
         </View>
     );
 }
@@ -64,15 +64,15 @@ const localStyles = StyleSheet.create({
         alignContent: "center",
         justifyContent: "center",
         alignItems: "center",
-        width: widthWindow - 60,
+        width: widthWindow - 80,
         borderRadius: 8,
-        borderWidth: 1
-
+        borderWidth: 1,
+        backgroundColor: colors.backgroundSecondary
     },
     input: {
         height: 50,
         width: 200,
-        paddingHorizontal: 6,
+        paddingHorizontal: 10,
         color: 'black'
     },
     icon:{

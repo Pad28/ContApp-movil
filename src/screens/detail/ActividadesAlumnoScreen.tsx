@@ -1,19 +1,8 @@
-import { StackScreenProps } from "@react-navigation/stack";
-import { RootLoginStackParams } from "../../navigators/StackNavigator";
 import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { HeaderApp } from "../../components/HeaderApp";
-import React from "react-native"
-import { colors, globalStyles } from "../../theme/globalStyles";
-import { InputIcon } from "../../components/InputIcon";
-import { Button } from "../../components/buttons/Button";
+import { globalStyles } from "../../theme/globalStyles";
 import { useState } from "react";
-import { VentanaModal } from "../../components/feedback/Alerta";
-import { BottomTabBarButtonProps, BottomTabBarProps } from "@react-navigation/bottom-tabs";
 
-interface Props extends StackScreenProps<RootLoginStackParams, any> {
-}
-
-export const RecursosAlumnoScreen = ({ navigation }: Props) => {
+export const ActividadesAlumnoScreen = () => {
     const [modal, setModal] = useState(false);
     return (
         <View style={{ flex: 1 }} >
@@ -22,12 +11,14 @@ export const RecursosAlumnoScreen = ({ navigation }: Props) => {
                     <ScrollView showsHorizontalScrollIndicator={false} >
 
                     <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                            Recursos
+                            Actividades
                         </Text>
                         <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                            ¡Visualiza o descarga la informacion!
+                            ¡Contesta lo siguiente!
                         </Text>
                         
+                        
+
                         
 
                     </ScrollView>

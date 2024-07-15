@@ -13,7 +13,7 @@ export interface SettingsState {
 
 // Estado inicial del contexto de ajustes
 export const settingsInitialState: SettingsState  = {
-    fontSize: 20,
+    fontSize: 22,
     fontSizeMax: 26,
     fontSizeMin: 14,
     developmentSettings: false,

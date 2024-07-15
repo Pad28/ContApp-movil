@@ -1,28 +1,23 @@
-import { Text, View } from 'react-native';
-import { SettingsProvider } from './src/context';
-import 'react-native-gesture-handler';
-
-
-import React from 'react';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { StackNavigator } from './src/navigators/StackNavigator';
+import { AuthProvider, SettingsProvider } from './src/context';
+import { LoginStackNavigator } from './src/navigators';
 
 export default function App() {
   return (
     <NavigationContainer>
-        <AppState>
-          <StackNavigator/>
-        </AppState>       
-      </NavigationContainer>
+      <AppState>
+        <LoginStackNavigator />
+      </AppState>
+    </NavigationContainer>
   );
 }
 
 const AppState = ({children}: { children: React.JSX.Element | React.JSX.Element[] }) => {
   return (
     <SettingsProvider>
-
-      { children }
+      <AuthProvider>
+        { children }
+      </AuthProvider>
     </SettingsProvider>
   );
 }
