@@ -63,7 +63,7 @@ export const LoginScreen = ( { navigation }: Props ) => {
                 text="Ingresar"
               />
 
-              {(authState.fingerPrintAuth && fingerPrint) && (
+              {(authState.fingerPrintAuth) && (
                 <IconButton 
                   iconName="finger-print"
                   onPress={authenticate}
