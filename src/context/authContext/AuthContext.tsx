@@ -3,7 +3,7 @@ import { User, UserAuthenticated } from "../../interfaces/UserAuthenticated";
 import { authReducer } from "./AuthReducer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthStorageKeys } from "../../config";
-import { useRequestPost } from "../../hooks";
+import { useRequestPost } from "../../hooks/requests/useRequestPost";
 
 export interface AuthState {
     fingerPrintAuth: boolean;
@@ -26,53 +26,53 @@ export interface AuthContextProps {
 
 export const AuthContext = createContext({} as AuthContextProps);
 export const AuthProvider = ({ children }: any) => {
-    const [ authState, dispatch ] = useReducer(authReducer, authInitialState);
+    const [authState, dispatch] = useReducer(authReducer, authInitialState);
     const { isLoading, setIsLoading, peticionPostAlert } = useRequestPost({});
 
     useEffect(() => {
-        checkUser();        
+        checkUser();
     }, []);
 
-    const checkUser = async() => {
+    const checkUser = async () => {
         setIsLoading(true);
-        const [user, token] = await Promise.all([
+        const [userAuthenticated, token] = await Promise.all([
             await AsyncStorage.getItem(AuthStorageKeys.USER_AUTHENTICATED),
             await AsyncStorage.getItem(AuthStorageKeys.USER_TOKEN),
         ]);
-        
-        if(token) dispatch({ 
-            type: "fingerPrintAuth", 
-            payload: { isActive: true, recoveredToken: token } 
+
+        if (token) dispatch({
+            type: "fingerPrintAuth",
+            payload: { isActive: true, recoveredToken: token }
         });
-        
-        if(!user) {
+
+        if (!userAuthenticated) {
             setIsLoading(false);
             return dispatch({ type: "logOut" })
         };
-        
+
         const result = await peticionPostAlert({
             path: "/api/auth/renew-token",
             body: {},
             validateEmpty: false,
-            config: {headers: {'Authorization': `Bearer ${token}`}},
+            config: { headers: { 'Authorization': `Bearer ${token}` } },
             errorMessage: "La sesión a expirado",
         });
 
         setIsLoading(false);
-        if(!result) return logOut();
-        const { alumno, token: newToken } = result as UserAuthenticated;
-        logIn(alumno, newToken);
+        if (!result) return logOut();
+        const { user, token: newToken } = result as UserAuthenticated;
+        logIn(user, newToken);
     }
 
     // Inicia sesión del usuario en el context y guarda el JWT y la información en el AsyncStorage
     const logIn = async (user: User, token: string) => {
-        dispatch({ type: "signIn", payload: { token, userAuthenticated: user }});
+        dispatch({ type: "signIn", payload: { token, userAuthenticated: user } });
         await AsyncStorage.setItem(AuthStorageKeys.USER_TOKEN, token);
         await AsyncStorage.setItem(AuthStorageKeys.USER_AUTHENTICATED, JSON.stringify(user));
     }
 
     // Cierra sesión del usuario en el context y elimina la información del usuario en el AsyncStorage
-    const logOut = async() => {
+    const logOut = async () => {
         await AsyncStorage.removeItem(AuthStorageKeys.USER_AUTHENTICATED);
         dispatch({ type: "logOut" });
     }
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }: any) => {
                 isLoadingCheckUser: isLoading,
             }}
         >
-            { children }
+            {children}
         </AuthContext.Provider>
     );
 

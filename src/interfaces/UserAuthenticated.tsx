@@ -1,13 +1,13 @@
 export interface UserAuthenticated {
-    alumno: User;
-    token:  string;
+    user: User;
+    token: string;
 }
 
 export interface User {
     matricula: string;
-    nombre:    string;
+    nombre: string;
     apellidos: string;
-    correo:    string;
-    rol:       string;
-    id_grupo:  string;
+    correo: string;
+    rol: string;
+    id_grupo: string;
 }

@@ -14,27 +14,27 @@ export const SettingsScreen = () => {
             <KeyboardAvoidingView>
                 <ScrollView>
 
-                    <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
+                    <Text style={{ margin: 15, fontSize: 20, alignSelf: 'center' }}>
                         Pantalla de ajustes
                     </Text>
-                    <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                        { JSON.stringify(authState, null, 5) }
+                    <Text style={{ margin: 15, fontSize: 20, alignSelf: 'center' }}>
+                        {JSON.stringify(authState, null, 2)}
                     </Text>
-                        
-                    <InputIcon
+
+                    {/* <InputIcon
                         style={{ alignSelf: "center", backgroundColor: 'white', marginTop: 20 }}
                         onChangeText={() => { }}
                         placeholder="MATRÍCULA"
                         iconName="person"
-                    />
+                    /> */}
 
-                    <Button 
+                    <Button
                         style={{ alignSelf: "center", marginVertical: 10 }}
                         onPress={() => setShowAlert(true)}
                         text="Cerrar sesión"
                     />
 
-                    <Alert 
+                    <Alert
                         visible={showAlert}
                         onPressAccept={() => {
                             setShowAlert(false);
@@ -43,6 +43,8 @@ export const SettingsScreen = () => {
                         onPressCancel={() => setShowAlert(false)}
                         text="¿Desea cerrar sesión?"
                     />
+
+                    <View style={{ height: 200 }} />
 
                 </ScrollView>
             </KeyboardAvoidingView>

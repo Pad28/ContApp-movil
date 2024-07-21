@@ -12,11 +12,11 @@ export default function App() {
   );
 }
 
-const AppState = ({children}: { children: React.JSX.Element | React.JSX.Element[] }) => {
+const AppState = ({ children }: { children: React.JSX.Element | React.JSX.Element[] }) => {
   return (
     <SettingsProvider>
       <AuthProvider>
-        { children }
+        {children}
       </AuthProvider>
     </SettingsProvider>
   );
