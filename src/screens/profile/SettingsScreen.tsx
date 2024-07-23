@@ -1,8 +1,8 @@
-import { KeyboardAvoidingView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Text, View, ScrollView } from "react-native";
 import { globalStyles } from "../../theme/globalStyles";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context";
-import { ScrollView } from "react-native-gesture-handler";
+//import { ScrollView } from "react-native-gesture-handler";
 import { Alert, Button, InputIcon } from "../../components";
 
 export const SettingsScreen = () => {
