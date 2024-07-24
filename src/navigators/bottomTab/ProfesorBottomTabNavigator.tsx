@@ -41,7 +41,7 @@ export const ProfesorBottomTabNavigator = () => {
           let iconName = '';
           switch (route.name) {
               case 'Publicar':
-                  iconName = 'cloud-upload-outline';
+                  iconName = 'cloud-upload';
                   break;
               case 'SettingsScreen':
                   iconName = 'settings';
@@ -50,7 +50,7 @@ export const ProfesorBottomTabNavigator = () => {
                   iconName = 'trending-up';
                   break;
               case 'Quizz':
-                  iconName = 'game-controller-outline';
+                  iconName = 'reader';
                   break;
               
           }
@@ -76,7 +76,7 @@ export const ProfesorBottomTabNavigator = () => {
       <Tab.Screen 
         name='Avances' 
         component={AvancesAlumnos} 
-        options={{ title: 'Actividades', headerShown:false }} 
+        options={{ title: 'Avances', headerShown:false }} 
       />
       <Tab.Screen 
         name='Quizz' 
