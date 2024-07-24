@@ -90,6 +90,7 @@ const localStyles = StyleSheet.create({
         gap: 8,
         borderRadius: 10,
         padding: 16,
+        elevation: 12,
 
         position: "absolute", top: 200, zIndex: 9999
     },

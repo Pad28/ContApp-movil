@@ -1,52 +1,48 @@
-import { Button, ScrollView, Text, View } from 'react-native';
-import { globalStyles } from "../../theme/globalStyles";
-import Pdf from 'react-native-pdf';
-import { AlertIcon } from '../../components/feedback/AlertIcon';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { globalStyles, widthWindow } from "../../theme/globalStyles";
+import WebView from 'react-native-webview'
 import { useState } from 'react';
+import { Button } from '../../components';
 
 export const HomeAlumnoScreen = () => {
-    const pdfResource = { uri: 'http://192.168.100.49:8080/test', cache: true };
-    const [show, setShow] = useState(false);
+    const encodedPdfUrl = encodeURIComponent("http://159.54.132.23:8080/test");
+    // const encodedPdfUrl = encodeURIComponent("http://192.168.122.8/Guía de estudio-Las cuentas.pdf");
+    const googleDocsView = `https://docs.google.com/gview?embedded=true&url=${encodedPdfUrl}`;
+
+    const [verPdf, setVerPdf] = useState(false)
 
     return (
         <View style={globalStyles.container}>
-            <ScrollView>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }} >
-                    En construcción :/
-                </Text>
-                <AlertIcon
-                    type='warning'
-                    show={show}
-                    setShow={setShow}
-                    title="Advertencia"
-                    text='Lorem impsum '
-                    style={{ top: 0, position: "relative" }}
-                />
-                <Button
-                    title='show'
-                    onPress={() => setShow(!show)}
-                />
+            {/* <ScrollView> */}
+
+            <Button
+                onPress={() => setVerPdf(!verPdf)}
+                text="Ver material"
+                style={{ marginVertical: 20, alignSelf: "center" }}
+            />
+
+            {(verPdf) && (
+                <View style={localStyles.containerPdf} >
+                    <WebView
+                        style={{ width: widthWindow - 50 }}
+                        originWhitelist={['*']}
+                        source={{ uri: googleDocsView }}
+                    />
+                </View>
+            )}
 
 
-                {/* <Pdf
-                    source={pdfResource}
-                    onLoadComplete={(numberOfPages, filePath) => {
-                        console.log(`number of pages: ${numberOfPages}`);
-                    }}
-                    onError={(error) => {
-                        console.error(error);
-                    }}
-                    style={{ flex: 1 }}
-                /> */}
-                {/* <WebView
-                    style={{ height: 600, width: '100%' }}
-                    source={{ uri: pdfResource.uri }}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    startInLoadingState={true}
-                    renderLoading={() => <Text>Loading...</Text>}
-                /> */}
-            </ScrollView>
+            {/* <View style={{ height: 600 }} /> */}
+            {/* </ScrollView> */}
         </View>
     );
 }
+
+
+const localStyles = StyleSheet.create({
+    containerPdf: {
+        marginVertical: 50,
+        height: 400,
+        width: widthWindow - 50,
+    }
+});
