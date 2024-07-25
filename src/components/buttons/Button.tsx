@@ -8,9 +8,10 @@ interface Props {
     text: string;
     onPress: () => void;
     style?: StyleProp<ViewStyle>;
+    styleText?: StyleProp<TextStyle>;
 }
 
-export const Button = ({ text, onPress, style }: Props) => {
+export const Button = ({ text, onPress, style, styleText }: Props) => {
     const { fontSize } = useContext(SettingsContext).settingsState;
 
     return (
@@ -18,7 +19,7 @@ export const Button = ({ text, onPress, style }: Props) => {
             style={[ localStyles.container, style ]} 
             onPress={onPress}
         >
-            <Text style={[ localStyles.text, { fontSize } ]} >
+            <Text style={[ localStyles.text, { fontSize }, styleText  ]} >
                 { text }
             </Text>
         </TouchableOpacity>

@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { StyleSheet, View, TextInput, StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, StyleProp, ViewStyle, TouchableOpacity, TextStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, widthWindow } from '../../theme/globalStyles';
 import { SettingsContext } from '../../context';
@@ -11,7 +11,9 @@ interface Props {
     onChangeText: (value: string) => void;
     security?: boolean;
     style?: StyleProp<ViewStyle>
+    styleText?: StyleProp<TextStyle>
     value?: string;
+    publicar?: boolean;
 }
 
 export const InputIcon = (props: Props) => {
@@ -21,8 +23,10 @@ export const InputIcon = (props: Props) => {
         onChangeText, 
         placeholder, 
         iconName, 
-        security = false, 
-        style 
+        security = false,
+        publicar = false,
+        style,
+        styleText
     } = props;
     
     const { fontSize } = useContext(SettingsContext).settingsState;
@@ -43,12 +47,23 @@ export const InputIcon = (props: Props) => {
                 placeholder={placeholder}
                 onChangeText={onChangeText}
                 secureTextEntry={showSecurity}
-                style={[localStyles.input, { fontSize }]}
+                style={[ localStyles.input,  { fontSize }, styleText]}
+                multiline={true}
+                textAlignVertical="top"
             />
             {
                 (security) ? (
                     <TouchableOpacity onPress={handleSecurity}>
                         <Ionicons name={securityIcon} size={40} />
+                    </TouchableOpacity>
+                ) : (
+                    <View style={{ width: 40 }} />
+                )
+            }
+            {
+                (publicar) ? (
+                    <TouchableOpacity onPress={handleSecurity}>
+                        <Ionicons name={"download-outline"} size={40} />
                     </TouchableOpacity>
                 ) : (
                     <View style={{ width: 40 }} />
@@ -71,8 +86,8 @@ const localStyles = StyleSheet.create({
     },
     input: {
         height: 50,
-        width: 200,
-        paddingHorizontal: 10,
+        width: 180,
+        paddingHorizontal: 5,
         color: 'black'
     },
     icon:{

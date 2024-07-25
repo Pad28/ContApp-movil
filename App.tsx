@@ -1,12 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider, SettingsProvider } from './src/context';
 import { LoginStackNavigator } from './src/navigators';
+import { ProfesorBottomTabNavigator } from './src/navigators/bottomTab/ProfesorBottomTabNavigator';
+import { ResultadoAvanceAlumnoProfesor } from './src/screens/detail/ResultadoAvanceAlumnoProfesorScreen';
 
 export default function App() {
   return (
     <NavigationContainer>
       <AppState>
-        <LoginStackNavigator />
+        <ProfesorBottomTabNavigator />
       </AppState>
     </NavigationContainer>
   );

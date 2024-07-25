@@ -10,21 +10,23 @@ import { useEffect, useRef } from "react";
 import { Animated, Keyboard, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors, widthWindow } from "../../theme/globalStyles";
 import { Ionicons } from '@expo/vector-icons';
+import { PublicarProfesoresScreen } from "../../screens/detail/PublicarProfesoresScreen";
+import { AvancesAlumnos } from "../stack/AvancesAlumnosStackNavigator";
+import { SetQuizzStack } from "../stack/SetQuizzProfesoresStackNavigator";
 
-export type RootAlumnoBottomTabParams = {
-  HomeAlumnoScreen: undefined;
+export type RootProfesorBottomTabParams = {
+  Publicar: undefined;
   SettingsScreen: undefined;
-  RecursosAlumnoScreen: undefined;
-  ActividadesAlumnoScreen: undefined;
-  AvanceAlumnoScreen: undefined;
+  Avances: undefined;
+  Quizz: undefined;
 }
 
-const Tab = createBottomTabNavigator<RootAlumnoBottomTabParams>();
-export const AlumnoBottomTabNavigator = () => {
+const Tab = createBottomTabNavigator<RootProfesorBottomTabParams>();
+export const ProfesorBottomTabNavigator = () => {
   return (
     <Tab.Navigator
       
-      initialRouteName="HomeAlumnoScreen"
+      initialRouteName="Publicar"
       tabBar={({ descriptors, insets, navigation, state }) => (
         <TabBar 
           descriptors={descriptors}
@@ -37,21 +39,19 @@ export const AlumnoBottomTabNavigator = () => {
         tabBarIcon: ({ color }) => {
           let iconName = '';
           switch (route.name) {
-              case 'HomeAlumnoScreen':
-                  iconName = 'home';
+              case 'Publicar':
+                  iconName = 'cloud-upload';
                   break;
               case 'SettingsScreen':
                   iconName = 'settings';
                   break;
-              case 'RecursosAlumnoScreen':
+              case 'Avances':
+                  iconName = 'trending-up';
+                  break;
+              case 'Quizz':
                   iconName = 'reader';
                   break;
-              case 'ActividadesAlumnoScreen':
-                  iconName = 'file-tray-full';
-                  break;
-              case 'AvanceAlumnoScreen':
-                  iconName = 'golf';
-                  break;
+              
           }
 
           return <Ionicons name={iconName} color={color} size={40} />
@@ -68,25 +68,20 @@ export const AlumnoBottomTabNavigator = () => {
     >
 
       <Tab.Screen 
-        name="RecursosAlumnoScreen" 
-        component={RecursosAlumnoScreen} 
-        options={{ title: "Recursos" }} 
+        name="Publicar" 
+        component={PublicarProfesoresScreen} 
+        options={{ title: "Publicar" }} 
       />
       <Tab.Screen 
-        name='ActividadesAlumnoScreen' 
-        component={ActividadesAlumnoScreen} 
-        options={{ title: 'Actividades' }} 
+        name='Avances' 
+        component={AvancesAlumnos} 
+        options={{ title: 'Avances', headerShown:false }} 
       />
       <Tab.Screen 
-        name='HomeAlumnoScreen' 
-        component={HomeAlumnoScreen} 
-        options={{ title: 'Inicio' }} 
+        name='Quizz' 
+        component={SetQuizzStack} 
+        options={{ title: 'Quizz', headerShown:false }} 
         />
-      <Tab.Screen 
-        name='AvanceAlumnoScreen' 
-        component={AvanceAlumnoScreen} 
-        options={{ title: 'Avances' }} 
-      />
       <Tab.Screen 
         name="SettingsScreen" 
         component={SettingsScreen} 
