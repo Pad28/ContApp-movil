@@ -6,7 +6,7 @@ import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Ionicons } from '@expo/vector-icons';
 import { useContext } from "react";
 import { AuthContext, SettingsContext } from "../../context";
-import { SeleccionarGrupoScreen } from "../../screens/detail/SeleccionarGrupoProfesorScreen";
+import { SeleccionarGrupoAvancesScreen } from "../../screens/detail/SeleccionarGrupoProfesorScreen";
 import { AlumnosGrupoProfesor } from "../../screens/detail/AvancesGrupoProfesorScreen";
 import { AvanceAlumnoProfesor } from "../../screens/detail/AvancesAlumnoProfesorScreen";
 import { SetQuizzProfesor } from "../../screens/detail/SetQuizzProfesorScreen";
@@ -42,7 +42,7 @@ export const AvancesAlumnos = () => {
             <Stack.Screen
                 options={{ title: "Grupo" }}
                 name="SeleccionarGrupo"
-                component={SeleccionarGrupoScreen}
+                component={SeleccionarGrupoAvancesScreen}
             />
             <Stack.Screen
                 options={{ title: "Alumnos" }}

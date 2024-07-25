@@ -14,7 +14,7 @@ interface Props extends StackScreenProps<RootAvancesStackParams, any> { }
 
 interface Props2 extends StackScreenProps<RootQuizzStackParams, any> { }
 
-export const SeleccionarGrupoScreen = ({ navigation }: Props) => {
+export const SeleccionarGrupoAvancesScreen = ({ navigation }: Props) => {
     const { fontSize } = useContext(SettingsContext).settingsState;
     const [modal, setModal] = useState(false);
     return (

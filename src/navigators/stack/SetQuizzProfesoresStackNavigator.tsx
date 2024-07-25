@@ -6,12 +6,14 @@ import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Ionicons } from '@expo/vector-icons';
 import { useContext } from "react";
 import { AuthContext, SettingsContext } from "../../context";
-import { SeleccionarGrupoScreen } from "../../screens/detail/SeleccionarGrupoProfesorScreen";
+import { SeleccionarGrupoQuizzScreen } from "../../screens/detail/SeleccionarGrupoQuizzProfesorScreen";
 import { SetQuizzProfesor } from "../../screens/detail/SetQuizzProfesorScreen";
+import { ResultadoAvanceAlumnoProfesor } from "../../screens/detail/ResultadoAvanceAlumnoProfesorScreen";
 
 export type RootQuizzStackParams = {
     SeleccionarGrupo: undefined;
     SetQuizz: undefined;
+    ResultadoAvance: undefined;
 }
 
 const Stack = createStackNavigator<RootQuizzStackParams>();
@@ -36,12 +38,17 @@ export const SetQuizzStack = () => {
             <Stack.Screen
                 options={{ title: "Grupo" }}
                 name="SeleccionarGrupo"
-                component={SeleccionarGrupoScreen}
+                component={SeleccionarGrupoQuizzScreen}
             />
             <Stack.Screen
                 options={{ title: "Alumnos" }}
                 name="SetQuizz"
                 component={SetQuizzProfesor}
+            />
+            <Stack.Screen
+                options={{ title: "Resultados" }}
+                name="ResultadoAvance"
+                component={ResultadoAvanceAlumnoProfesor}
             />
             
 

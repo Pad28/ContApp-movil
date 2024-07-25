@@ -1,47 +1,43 @@
-import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { colors, globalStyles } from "../../theme/globalStyles";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SettingsContext } from "../../context";
+import { Button, InputIcon } from "../../components";
+import { useRecoverPasswordScreen } from "../../hooks";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootLoginStackParams } from "../../navigators";
-import { Button, IconButton } from "../../components";
+import { AlumnosGrupoProfesor } from "./AvancesGrupoProfesorScreen";
 import { RootAvancesStackParams } from "../../navigators/stack/AvancesAlumnosStackNavigator";
-import { Switche } from "../../components/Switch";
 import { RootQuizzStackParams } from "../../navigators/stack/SetQuizzProfesoresStackNavigator";
 
-interface Props extends StackScreenProps<RootQuizzStackParams, any> { }
+interface Props extends StackScreenProps<RootAvancesStackParams, any> { }
 
-export const SetQuizzProfesor = ({ navigation }: Props) => {
+interface Props2 extends StackScreenProps<RootQuizzStackParams, any> { }
+
+export const SeleccionarGrupoQuizzScreen = ({ navigation }: Props) => {
+    const { fontSize } = useContext(SettingsContext).settingsState;
     const [modal, setModal] = useState(false);
-    const [switche, setSwitch] = useState(true);
     return (
         <View style={{ flex: 1 }} >
             <View style={globalStyles.container} >
                 <KeyboardAvoidingView>
                     <ScrollView showsHorizontalScrollIndicator={false} >
 
-                        
+                        <Text style={{ margin: 15, fontSize: 24, alignSelf: 'center', fontWeight: "bold" }}>
+                            Seleccione un grupo:
+                        </Text>
 
-                        <View style={{ flexDirection: "row", width:350, marginTop:20 }}>
-                            <Text style={{ width:200, margin: 15, fontSize: 18, alignSelf: 'flex-start', textAlign:"left"}}>
-                                Quizz 1......
-                            </Text>
-                            <View style={{ alignItems:"flex-end"}}>
-                            <IconButton
-                                style={{backgroundColor: colors.buttonPrimary , padding:0, width: 50, height:50}}
-                                iconName="pencil"
-                                onPress={() => {navigation.navigate("ResultadoAvance")}}
-                                tamaño={40}
-                            />
-                            </View>
-                            <Switche
-                                onValueChange={setSwitch}
-                                value={switche}
-                                style={{alignContent:"center", alignItems:"center", alignSelf:"center" }}
-                            />
-                            
+                        <Button
+                            style={{ alignSelf: "center", marginVertical: 10 }}
+                            onPress={() => navigation.navigate("AlumnosGrupoProfesor")}
+                            text="Grupo NI34"
+                        />
 
-                        </View>
-
+                        <Button
+                            style={{ alignSelf: "center", marginVertical: 10 }}
+                            onPress={() => navigation.navigate("SetQuizz")}
+                            text="Grupo NI33"
+                        />
 
 
 
@@ -135,7 +131,3 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 })
-
-
-
-

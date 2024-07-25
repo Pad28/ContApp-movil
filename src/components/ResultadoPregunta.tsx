@@ -18,14 +18,14 @@ export const ResultadoPregunta = ({ pregunta, isCorrect, respuestaAlumno, respue
 
     return (
         <View style={[localStyles.container, styleView]}>
-            <Text style={[localStyles.text, { fontSize }, styleText]}>{pregunta}</Text>
+            <Text style={[localStyles.text,  {marginBottom:10, fontSize }, styleText]}>{pregunta}</Text>
             <Text style={[localStyles.text, { fontSize }, styleText]}>Respuesta del alumno:</Text>
-            <Text style={[localStyles.text, { fontSize }, styleText]}>{respuestaAlumno}</Text>
+            <Text style={[localStyles.text, { marginBottom:10, fontSize }, styleText]}>{respuestaAlumno}</Text>
 
             {!isCorrect && (
                 <>
                     <Text style={[localStyles.text, { fontSize }, styleText]}>Respuesta correcta:</Text>
-                    <Text style={[localStyles.text, { fontSize }, styleText]}>{respuestaCorrect}</Text>
+                    <Text style={[localStyles.text, {  marginBottom:10, fontSize }, styleText]}>{respuestaCorrect}</Text>
                 </>
             )}
 
@@ -33,13 +33,15 @@ export const ResultadoPregunta = ({ pregunta, isCorrect, respuestaAlumno, respue
                 <IconButton
                     iconName="checkmark-circle"
                     onPress={() => {}}
-                    style={{ backgroundColor: "green" }}
+                    style={{ backgroundColor: "green", height:10 }}
+                    tamaño={10}
                 />
             ) : (
                 <IconButton
                     iconName="close-circle"
                     onPress={() => {}}
-                    style={{ backgroundColor: "red" }}
+                    style={{ backgroundColor: "red", height:80, width:80, padding:0 }}
+                    tamaño={50}
                 />
             )}
         </View>
@@ -50,14 +52,18 @@ const localStyles = StyleSheet.create({
     container: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: colors.buttonPrimary,
+        backgroundColor: colors.backgroundPrimary,
         borderRadius: 14,
         padding: 18,
         height: "auto",
-        width: widthWindow - 100
+        width: widthWindow - 100,
+        elevation: 3,
+        borderWidth: 1,
+        borderColor: "rgba(0,0,0,0.2)"
+         
     },
     text: {
         fontWeight: "bold",
-        color: "white"
+        color: "black",
     }
 });
