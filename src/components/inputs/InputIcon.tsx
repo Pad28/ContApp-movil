@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { StyleSheet, View, TextInput, StyleProp, ViewStyle, TouchableOpacity, TextStyle } from 'react-native';
+import { StyleSheet, View, TextInput, StyleProp, ViewStyle, TouchableOpacity, TextStyle, TextProps } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, widthWindow } from '../../theme/globalStyles';
 import { SettingsContext } from '../../context';
@@ -14,6 +14,8 @@ interface Props {
     styleText?: StyleProp<TextStyle>
     value?: string;
     publicar?: boolean;
+    alineacionVertical?: string;
+    multilinea?: boolean;
 }
 
 export const InputIcon = (props: Props) => {
@@ -25,6 +27,8 @@ export const InputIcon = (props: Props) => {
         iconName, 
         security = false,
         publicar = false,
+        alineacionVertical = "center",
+        multilinea = false,
         style,
         styleText
     } = props;
@@ -48,8 +52,9 @@ export const InputIcon = (props: Props) => {
                 onChangeText={onChangeText}
                 secureTextEntry={showSecurity}
                 style={[ localStyles.input,  { fontSize }, styleText]}
-                multiline={true}
-                textAlignVertical="top"
+                multiline={multilinea}
+                textAlignVertical={alineacionVertical}
+                
             />
             {
                 (security) ? (
@@ -62,7 +67,7 @@ export const InputIcon = (props: Props) => {
             }
             {
                 (publicar) ? (
-                    <TouchableOpacity onPress={handleSecurity}>
+                    <TouchableOpacity onPress={()=>{}}>
                         <Ionicons name={"download-outline"} size={40} />
                     </TouchableOpacity>
                 ) : (

@@ -121,7 +121,7 @@ const TabBar = ({ descriptors, navigation, state }: Props) => {
 
     const activeBackgroundColor = "white";  
     const inactiveBackgroundColor = colors.primary; 
-    const activeTintColor = "black";
+    const activeTintColor = colors.buttonPrimary;
     const inactiveTintColor = "white";
     
     

@@ -7,16 +7,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { useContext } from "react";
 import { AuthContext, SettingsContext } from "../../context";
 import { AlumnoBottomTabNavigator } from "../bottomTab/AlumnoBottomTabNavigator";
-import { SeleccionarGrupoScreen } from "../../screens/detail/SeleccionarGrupoProfesorScreen";
+import { SeleccionarGrupoAvancesScreen } from "../../screens/detail/SeleccionarGrupoProfesorScreen";
 import { AlumnosGrupoProfesor } from "../../screens/detail/AvancesGrupoProfesorScreen";
 import { AvanceAlumnoProfesor } from "../../screens/detail/AvancesAlumnoProfesorScreen";
 import { SetQuizzProfesor } from "../../screens/detail/SetQuizzProfesorScreen";
+import { ResultadoAvanceAlumnoProfesor } from "../../screens/detail/ResultadoAvanceAlumnoProfesorScreen";
 
 export type RootAvancesStackParams = {
     SeleccionarGrupo: undefined;
     AlumnosGrupoProfesor: undefined;
     AlumnoAvance: undefined;
     SetQuizz: undefined;
+    ResultadoPregunta: undefined;
 }
 
 const Stack = createStackNavigator<RootAvancesStackParams>();
@@ -41,7 +43,7 @@ export const AvancesAlumnos = () => {
             <Stack.Screen
                 options={{ title: "Grupo" }}
                 name="SeleccionarGrupo"
-                component={SeleccionarGrupoScreen}
+                component={SeleccionarGrupoAvancesScreen}
             />
             <Stack.Screen
                 options={{ title: "Alumnos" }}
@@ -55,9 +57,9 @@ export const AvancesAlumnos = () => {
             />
 
             <Stack.Screen
-                options={{ title: "Alumno" }}
-                name="SetQuizz"
-                component={SetQuizzProfesor}
+                options={{ title: "Resultado de Quizz" }}
+                name="ResultadoPregunta"
+                component={ResultadoAvanceAlumnoProfesor}
             />
 
 

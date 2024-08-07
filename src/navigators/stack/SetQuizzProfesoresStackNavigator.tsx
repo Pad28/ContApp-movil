@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useContext } from "react";
 import { AuthContext, SettingsContext } from "../../context";
 import { AlumnoBottomTabNavigator } from "../bottomTab/AlumnoBottomTabNavigator";
-import { SeleccionarGrupoScreen } from "../../screens/detail/SeleccionarGrupoProfesorScreen";
+import { SeleccionarGrupoQuizzScreen } from "../../screens/detail/SeleccionarGrupoQuizzProfesorScreen";
 import { AlumnosGrupoProfesor } from "../../screens/detail/AvancesGrupoProfesorScreen";
 import { AvanceAlumnoProfesor } from "../../screens/detail/AvancesAlumnoProfesorScreen";
 import { SetQuizzProfesor } from "../../screens/detail/SetQuizzProfesorScreen";
@@ -39,7 +39,7 @@ export const SetQuizzStack = () => {
             <Stack.Screen
                 options={{ title: "Grupo" }}
                 name="SeleccionarGrupo"
-                component={SeleccionarGrupoScreen}
+                component={SeleccionarGrupoQuizzScreen}
             />
             <Stack.Screen
                 options={{ title: "Alumnos" }}

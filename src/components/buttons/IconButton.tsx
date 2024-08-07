@@ -22,7 +22,7 @@ export const IconButton = ({ iconName, onPress, style, tamaño = 50}: Props) => 
 
 const localStyles =  StyleSheet.create({
     container: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.buttonPrimary,
         padding: 16,
         justifyContent: "center",
         alignItems: "center",

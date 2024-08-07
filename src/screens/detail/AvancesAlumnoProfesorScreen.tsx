@@ -4,7 +4,7 @@ import { useState } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootLoginStackParams } from "../../navigators";
 import { Button, IconButton } from "../../components";
-import { SeleccionarGrupoScreen } from "./SeleccionarGrupoProfesorScreen";
+import { SeleccionarGrupoAvancesScreen } from "./SeleccionarGrupoProfesorScreen";
 import { RootAvancesStackParams } from "../../navigators/stack/AvancesAlumnosStackNavigator";
 
 interface Props extends StackScreenProps<RootAvancesStackParams, any> { }
@@ -29,7 +29,7 @@ export const AvanceAlumnoProfesor = ({ navigation }: Props) => {
                             <IconButton
                                 style={{backgroundColor: "green", padding:0, width: 60, height:60}}
                                 iconName="checkmark-circle-outline"
-                                onPress={() => { }}
+                                onPress={() => {navigation.navigate("ResultadoPregunta")}}
                             />
                             </View>
                             

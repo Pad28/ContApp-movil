@@ -14,7 +14,7 @@ interface Props extends StackScreenProps<RootAvancesStackParams, any> { }
 
 interface Props2 extends StackScreenProps<RootQuizzStackParams, any> { }
 
-export const SeleccionarGrupoScreen = ({ navigation }: Props) => {
+export const SeleccionarGrupoAvancesScreen = ({ navigation }: Props) => {
     const { fontSize } = useContext(SettingsContext).settingsState;
     const [modal, setModal] = useState(false);
     return (
@@ -35,7 +35,7 @@ export const SeleccionarGrupoScreen = ({ navigation }: Props) => {
 
                         <Button
                             style={{ alignSelf: "center", marginVertical: 10 }}
-                            onPress={() => navigation.navigate("SetQuizz")}
+                            onPress={() => navigation.navigate("AlumnosGrupoProfesor")}
                             text="Grupo NI33"
                         />
 

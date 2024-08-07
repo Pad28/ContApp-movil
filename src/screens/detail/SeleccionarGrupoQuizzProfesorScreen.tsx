@@ -1,66 +1,43 @@
-import { StackScreenProps } from "@react-navigation/stack";
-import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { globalStyles } from "../../theme/globalStyles";
-import { useState } from "react";
-import { DropBox } from "../../components/DropBox";
-import { ItemType } from "react-native-dropdown-picker";
+import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { colors, globalStyles } from "../../theme/globalStyles";
+import { useContext, useState } from "react";
+import { SettingsContext } from "../../context";
 import { Button, InputIcon } from "../../components";
+import { useRecoverPasswordScreen } from "../../hooks";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootLoginStackParams } from "../../navigators";
+import { AlumnosGrupoProfesor } from "./AvancesGrupoProfesorScreen";
+import { RootAvancesStackParams } from "../../navigators/stack/AvancesAlumnosStackNavigator";
+import { RootQuizzStackParams } from "../../navigators/stack/SetQuizzProfesoresStackNavigator";
 
 
-export const PublicarProfesoresScreen = () => {
+
+interface Props extends StackScreenProps<RootQuizzStackParams, any> { }
+
+export const SeleccionarGrupoQuizzScreen = ({ navigation }: Props) => {
+    const { fontSize } = useContext(SettingsContext).settingsState;
     const [modal, setModal] = useState(false);
-    const [grupo, setGrupo] = useState<ItemType<string>>({ label: '', value: '' });
-    const grupos = [
-        { label: 'ISC92', value: 'ISC92' },
-        { label: 'ISC91', value: 'ISC91' }
-    ];
-    const [value, setValue] = useState("");
     return (
         <View style={{ flex: 1 }} >
             <View style={globalStyles.container} >
                 <KeyboardAvoidingView>
                     <ScrollView showsHorizontalScrollIndicator={false} >
 
-                        <Text style={{ margin: 15, fontSize: 20, fontWeight:700, alignSelf: 'center' }}>
-                            Seleccione la opción a realizar
+                        <Text style={{ margin: 15, fontSize: 24, alignSelf: 'center', fontWeight: "bold" }}>
+                            Seleccione un grupo:
                         </Text>
 
-                        <DropBox
-                            style={{ marginTop: 20 }}
-                            texto="Grupo:"
-                            values={grupos}
-                            getValue={setGrupo}
-                            ancho={200}
-                        />
-
-                        <DropBox
-                            style={{ marginTop: 30 }}
-                            texto="Tipo:"
-                            values={grupos}
-                            getValue={setGrupo}
-                            ancho={200}
-                        />
-
-                        <InputIcon
-                            iconName="pencil"
-                            placeholder="Ingresa una descripcion"
-                            onChangeText={setValue}
-                            value={value}
-                            styleText={{ height: 180, fontSize: 18, paddingTop: 9 }}
-                            style={{ marginTop: 60 }}
-                            publicar={true}
-                            alineacionVertical="top"
+                        <Button
+                            style={{ alignSelf: "center", marginVertical: 10 }}
+                            onPress={() => navigation.navigate("SetQuizz")}
+                            text="Grupo NI34"
                         />
 
                         <Button
-                            style={{
-                                alignSelf: "center",
-                                marginTop: 20,
-                            }}
-                            onPress={()=>console.log("hola")}
-                            text="Enviar"
+                            style={{ alignSelf: "center", marginVertical: 10 }}
+                            onPress={() => navigation.navigate("SetQuizz")}
+                            text="Grupo NI33"
                         />
-
 
 
 
@@ -154,8 +131,3 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 })
-
-
-
-
-0

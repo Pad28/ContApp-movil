@@ -1,68 +1,30 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../../theme/globalStyles";
 import { useState } from "react";
-import { DropBox } from "../../components/DropBox";
-import { ItemType } from "react-native-dropdown-picker";
-import { Button, InputIcon } from "../../components";
+import { ResultadoPregunta } from "../../components/ResultadoPregunta";
 
-
-export const PublicarProfesoresScreen = () => {
+export const ResultadoAvanceAlumnoProfesor = () => {
     const [modal, setModal] = useState(false);
-    const [grupo, setGrupo] = useState<ItemType<string>>({ label: '', value: '' });
-    const grupos = [
-        { label: 'ISC92', value: 'ISC92' },
-        { label: 'ISC91', value: 'ISC91' }
-    ];
-    const [value, setValue] = useState("");
     return (
         <View style={{ flex: 1 }} >
             <View style={globalStyles.container} >
                 <KeyboardAvoidingView>
                     <ScrollView showsHorizontalScrollIndicator={false} >
 
-                        <Text style={{ margin: 15, fontSize: 20, fontWeight:700, alignSelf: 'center' }}>
-                            Seleccione la opción a realizar
-                        </Text>
+                    <Text style={{margin:15, fontSize:24, alignSelf:'center', fontWeight:"700"}}>
+                            Resultado de Quizz
+                    </Text>
 
-                        <DropBox
-                            style={{ marginTop: 20 }}
-                            texto="Grupo:"
-                            values={grupos}
-                            getValue={setGrupo}
-                            ancho={200}
-                        />
+                    <ResultadoPregunta
+                        pregunta="¿Como te llamas?"
+                        respuestaAlumno="Javier"
+                        isCorrect={false}
+                        respuestaCorrect="Oscar"
 
-                        <DropBox
-                            style={{ marginTop: 30 }}
-                            texto="Tipo:"
-                            values={grupos}
-                            getValue={setGrupo}
-                            ancho={200}
-                        />
-
-                        <InputIcon
-                            iconName="pencil"
-                            placeholder="Ingresa una descripcion"
-                            onChangeText={setValue}
-                            value={value}
-                            styleText={{ height: 180, fontSize: 18, paddingTop: 9 }}
-                            style={{ marginTop: 60 }}
-                            publicar={true}
-                            alineacionVertical="top"
-                        />
-
-                        <Button
-                            style={{
-                                alignSelf: "center",
-                                marginTop: 20,
-                            }}
-                            onPress={()=>console.log("hola")}
-                            text="Enviar"
-                        />
-
-
-
+                    />
+                        
+                        
+                        
 
                     </ScrollView>
                 </KeyboardAvoidingView>
@@ -158,4 +120,3 @@ const styles = StyleSheet.create({
 
 
 
-0
