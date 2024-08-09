@@ -7,24 +7,32 @@ export const ResultadoAvanceAlumnoProfesor = () => {
     const [modal, setModal] = useState(false);
     return (
         <View style={{ flex: 1 }} >
-            <View style={globalStyles.container} >
+            <View style={[globalStyles.container]} >
                 <KeyboardAvoidingView>
-                    <ScrollView showsHorizontalScrollIndicator={false} >
+                    <ScrollView showsHorizontalScrollIndicator={true} >
 
-                    <Text style={{margin:15, fontSize:24, alignSelf:'center', fontWeight:"700"}}>
+                        <Text style={{ margin: 15, fontSize: 24, alignSelf: 'center', fontWeight: "700" }}>
                             Resultado de Quizz
-                    </Text>
+                        </Text>
+                        
+                        <ResultadoPregunta
+                            pregunta="¿Quién es el padre de la contabilidad?"
+                            respuestaAlumno="Fra Luca Pacioli"
+                            isCorrect={true}
+                        />
 
-                    <ResultadoPregunta
-                        pregunta="¿Como te llamas?"
-                        respuestaAlumno="Javier"
-                        isCorrect={false}
-                        respuestaCorrect="Oscar"
+                        <ResultadoPregunta
+                            pregunta="Es el proceso de registrar, clasificar, analizar, interpretar y comunicar la información financiera de una entidad u organización"
+                            respuestaAlumno="Administración"
+                            isCorrect={false}
+                            respuestaCorrect="Contabilidad"
 
-                    />
+                        />
+
                         
-                        
-                        
+
+
+
 
                     </ScrollView>
                 </KeyboardAvoidingView>

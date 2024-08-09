@@ -31,7 +31,7 @@ export const SettingsScreen = () => {
                     />
                     <ButtonIcon
                         label="Apellido:"
-                        text={"Gutierrez López cano"}
+                        text={"Gutierre Cano"}
                         iconName="pencil"
                         onPress={() => setApellidosModal(true)}
                         style={{ marginTop: 30 }}

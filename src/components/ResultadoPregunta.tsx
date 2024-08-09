@@ -19,7 +19,7 @@ export const ResultadoPregunta = ({ pregunta, isCorrect, respuestaAlumno, respue
     return (
         <View style={[localStyles.container, styleView]}>
             <View style={[localStyles.container_pregunta]}>
-            <Text style={[localStyles.text,  {marginBottom:10, fontSize }, styleText]}>{pregunta}</Text>
+            <Text style={[localStyles.text,  {marginBottom:10, fontSize }, styleText, {color:"white"}]}>{pregunta}</Text>
             </View>
             
             <Text style={[localStyles.text, { fontSize }, styleText]}>Respuesta del alumno:</Text>
@@ -36,8 +36,8 @@ export const ResultadoPregunta = ({ pregunta, isCorrect, respuestaAlumno, respue
                 <IconButton
                     iconName="checkmark-circle"
                     onPress={() => {}}
-                    style={{ backgroundColor: "green", height:10 }}
-                    tamaño={10}
+                    style={{ backgroundColor: "green", height:80, width:80, padding:0 }}
+                    tamaño={50}
                 />
             ) : (
                 <IconButton
@@ -70,7 +70,9 @@ const localStyles = StyleSheet.create({
         color: "black",
     },
     container_pregunta: {
-        backgroundColor: "white",
+        backgroundColor: colors.buttonPrimary,
+        paddingLeft:10,
+        paddingEnd: 10,
         flexDirection: "row",
         borderRadius: 5
     }
