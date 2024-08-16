@@ -4,3 +4,5 @@ export * from "./buttons/LinkButton";
 export * from "./buttons/IconButton";
 export * from "./feedback/Alert";
 export * from "./feedback/AlertIcon";
+export * from "./buttons/LabelButtinIcon";
+export * from "./inputs/InputIcon";

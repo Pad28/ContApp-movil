@@ -1,116 +1,50 @@
-import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { globalStyles } from "../../theme/globalStyles";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { globalStyles, widthWindow } from "../../theme/globalStyles";
 import { useState } from "react";
+import { Button } from "../../components";
+import WebView from "react-native-webview";
 
 export const RecursosAlumnoScreen = () => {
     const [modal, setModal] = useState(false);
+
+    const encodedPdfUrl = encodeURIComponent("http://localhost:8080/test");
+    const googleDocsView = `https://docs.google.com/gview?embedded=true&url=${encodedPdfUrl}`;
+    const [verPdf, setVerPdf] = useState(false);
+
     return (
-        <View style={{ flex: 1 }} >
-            <View style={globalStyles.container} >
-                <KeyboardAvoidingView>
-                    <ScrollView showsHorizontalScrollIndicator={false} >
+        <View style={globalStyles.container} >
+            {/* <ScrollView> */}
 
-                    <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                            Recursos
-                        </Text>
-                        <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                            ¡Visualiza o descarga la informacion!
-                        </Text>
-                        
-                        
+            <Button
+                onPress={() => setVerPdf(!verPdf)}
+                text="Ver material"
+                style={{ marginVertical: 20, alignSelf: "center" }}
+            />
 
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </View>
+            {(verPdf) && (
+                <View style={localStyles.containerPdf} >
+                    <WebView
+                        style={{ width: widthWindow - 50 }}
+                        originWhitelist={['*']}
+                        source={{ uri: googleDocsView }}
+                    />
+                </View>
+            )}
+
+            {/* <View style={{ height: 600 }} /> */}
+            {/* </ScrollView> */}
         </View>
 
 
     );
 }
 
-const styles = StyleSheet.create({
-    image: {
-        width: 160,
-        height: 160,
-        borderRadius: 30,
-        alignSelf: "center",
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22,
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-    },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
-    },
-    buttonClose: {
-        backgroundColor: 'blue',
-        width: 100,
-        height: 70
-    },
-    buttonInclusivo: {
-        backgroundColor: 'red',
-        width: 180,
-        height: 120
-    },
-    textStyleBienvenido: {
-        color: 'green',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        borderWidth: 4,
-        borderColor: "black",
-        borderRadius: 12,
-        backgroundColor: "white",
-        padding: 5
-    },
-    textStyle: {
-        color: 'green',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        fontSize: 20,
-        padding: 10,
-        paddingLeft: 50,
-        paddingRight: 50,
-        fontStyle: "italic"
-    },
-    textStyle2: {
-        color: 'green',
-        fontWeight: 'bold',
-        textAlign: 'justify',
-        fontSize: 20,
-        padding: 10,
-        paddingLeft: 50,
-        paddingRight: 50,
-        fontStyle: "italic"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-    },
-})
-
-
-
+const localStyles = StyleSheet.create({
+    containerPdf: {
+        marginVertical: 50,
+        height: 400,
+        width: widthWindow - 50,
+    }
+});
 
 0

@@ -11,7 +11,7 @@ interface Props {
 export const IconButton = ({ iconName, onPress, style }: Props) => {
     return (
         <TouchableOpacity
-            style={[ localStyles.container, style ]}
+            style={[localStyles.container, style]}
             onPress={onPress}
         >
             <Ionicons name={iconName} size={50} color={"white"} />
@@ -19,9 +19,9 @@ export const IconButton = ({ iconName, onPress, style }: Props) => {
     );
 }
 
-const localStyles =  StyleSheet.create({
+const localStyles = StyleSheet.create({
     container: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.buttonPrimary,
         padding: 16,
         justifyContent: "center",
         alignItems: "center",

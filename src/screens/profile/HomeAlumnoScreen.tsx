@@ -1,40 +1,32 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { globalStyles, widthWindow } from "../../theme/globalStyles";
-import WebView from 'react-native-webview'
-import { useState } from 'react';
-import { Button } from '../../components';
+import { useContext } from 'react';
+import { AuthContext, SettingsContext } from '../../context';
+import { useHomeAlumnoScreen } from '../../hooks/screens/useHomeAlumnoScreen';
 
 export const HomeAlumnoScreen = () => {
-    const encodedPdfUrl = encodeURIComponent("http://159.54.132.23:8080/test");
-    // const encodedPdfUrl = encodeURIComponent("http://192.168.122.8/Guía de estudio-Las cuentas.pdf");
-    const googleDocsView = `https://docs.google.com/gview?embedded=true&url=${encodedPdfUrl}`;
+    const { authState } = useContext(AuthContext);
+    const { fontSize } = useContext(SettingsContext).settingsState;
+    const { getRandomMotivationalQuote } = useHomeAlumnoScreen();
 
-    const [verPdf, setVerPdf] = useState(false)
+    if (!authState.userAuthenticated) {
+        return (
+            <Text style={{ fontSize: fontSize + 12 }} >
+                Error al autenticar
+            </Text>
+        );
+    }
+
 
     return (
         <View style={globalStyles.container}>
-            {/* <ScrollView> */}
-
-            <Button
-                onPress={() => setVerPdf(!verPdf)}
-                text="Ver material"
-                style={{ marginVertical: 20, alignSelf: "center" }}
-            />
-
-            {(verPdf) && (
-                <View style={localStyles.containerPdf} >
-                    <WebView
-                        style={{ width: widthWindow - 50 }}
-                        originWhitelist={['*']}
-                        source={{ uri: googleDocsView }}
-                    />
-                </View>
-            )}
-
-
-            {/* <View style={{ height: 600 }} /> */}
-            {/* </ScrollView> */}
-        </View>
+            <Text style={[globalStyles.title, { fontSize: fontSize + 6 }]} >
+                Bienvenido {authState.userAuthenticated.nombre}
+            </Text>
+            <Text style={localStyles.quote} >
+                {getRandomMotivationalQuote()}
+            </Text>
+        </View >
     );
 }
 
@@ -44,5 +36,13 @@ const localStyles = StyleSheet.create({
         marginVertical: 50,
         height: 400,
         width: widthWindow - 50,
-    }
+    },
+    quote: {
+        fontSize: 24,
+        fontStyle: 'italic',
+        textAlign: 'center',
+        marginVertical: 40,
+        marginHorizontal: 20,
+        color: '#333',
+    },
 });

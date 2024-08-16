@@ -3,35 +3,94 @@ import { globalStyles } from "../../theme/globalStyles";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context";
 import { ScrollView } from "react-native-gesture-handler";
-import { Alert, Button, InputIcon } from "../../components";
+import { Alert, Button, InputIcon, LabelButtonIcon } from "../../components";
+import { ModalInput } from "../../components/inputs/ModalInput";
 
 export const SettingsScreen = () => {
-    const { logOut, authState } = useContext(AuthContext);
+    const { logOut } = useContext(AuthContext);
     const [showAlert, setShowAlert] = useState(false);
-
+    const [nombreModal, setNombreModal] = useState(false);
+    const [apellidosModal, setApellidosModal] = useState(false);
+    const [passwordModal, setPasswordModal] = useState(false);
     return (
         <View style={globalStyles.container} >
             <KeyboardAvoidingView>
                 <ScrollView>
 
-                    <Text style={{ margin: 15, fontSize: 20, alignSelf: 'center' }}>
-                        Pantalla de ajustes
-                    </Text>
-                    <Text style={{ margin: 15, fontSize: 20, alignSelf: 'center' }}>
-                        {JSON.stringify(authState, null, 2)}
-                    </Text>
+                    <LabelButtonIcon
+                        label="Nombre:"
+                        text={"Yahir"}
+                        iconName="pencil"
+                        onPress={() => setNombreModal(true)}
+                        style={{ marginTop: 30 }}
+                    />
+                    <LabelButtonIcon
+                        label="Apellido:"
+                        text={"Gutierre Cano"}
+                        iconName="pencil"
+                        onPress={() => setApellidosModal(true)}
+                        style={{ marginTop: 30 }}
+                    />
+                    <LabelButtonIcon
+                        label="Contraseña:"
+                        text={'*********'}
+                        iconName="pencil"
+                        onPress={() => setPasswordModal(true)}
+                        style={{ marginTop: 30 }}
+                    />
 
-                    {/* <InputIcon
-                        style={{ alignSelf: "center", backgroundColor: 'white', marginTop: 20 }}
-                        onChangeText={() => { }}
-                        placeholder="MATRÍCULA"
-                        iconName="person"
-                    /> */}
+                    <View
+                        style={{
+                            width: "100%",
+                            alignSelf: 'center',
+                            borderTopWidth: 1,
+                            borderColor: 'gray',
+                            marginTop: 30,
+                        }}
+                    />
+
 
                     <Button
                         style={{ alignSelf: "center", marginVertical: 10 }}
                         onPress={() => setShowAlert(true)}
                         text="Cerrar sesión"
+                    />
+
+                    <ModalInput
+                        iconName="pencil"
+                        onChangeText={value => { }}
+                        placeHolder={"Nombre"}
+                        setShowModal={setNombreModal}
+                        showModal={nombreModal}
+                        onPressAceptar={() => {
+                            setNombreModal(false);
+                            //handlePeticion({ nombre: form.nombre })
+                        }}
+                    />
+
+                    <ModalInput
+                        iconName="pencil"
+                        onChangeText={value => { }}
+                        placeHolder={"apellidos"}
+                        setShowModal={setApellidosModal}
+                        showModal={apellidosModal}
+                        onPressAceptar={() => {
+                            setApellidosModal(false);
+                            //handlePeticion({ apellidos: form.apellidos })
+                        }}
+                    />
+
+                    <ModalInput
+                        iconName="pencil"
+                        onChangeText={value => { }}
+                        placeHolder={'********'}
+                        setShowModal={setPasswordModal}
+                        showModal={passwordModal}
+                        security={true}
+                        onPressAceptar={() => {
+                            setPasswordModal(false);
+                            //handlePeticion({ password: form.password })
+                        }}
                     />
 
                     <Alert
@@ -43,8 +102,6 @@ export const SettingsScreen = () => {
                         onPressCancel={() => setShowAlert(false)}
                         text="¿Desea cerrar sesión?"
                     />
-
-                    <View style={{ height: 200 }} />
 
                 </ScrollView>
             </KeyboardAvoidingView>

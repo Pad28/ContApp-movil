@@ -32,13 +32,6 @@ export const LoginScreen = ({ navigation }: Props) => {
       <KeyboardAvoidingView>
         <ScrollView>
 
-          <AlertIcon
-            setShow={setShowErrorAlert}
-            show={showErrorAlert}
-            title="Error"
-            type="error"
-            text={messageError}
-          />
           <Image
             style={{
               height: 160,
@@ -47,6 +40,15 @@ export const LoginScreen = ({ navigation }: Props) => {
               marginTop: 22
             }}
             source={require("../../../assets/LogoSinFondo.png")}
+          />
+
+          <AlertIcon
+            style={{ top: 100 }}
+            setShow={setShowErrorAlert}
+            show={showErrorAlert}
+            title="Error"
+            type="error"
+            text={messageError}
           />
 
           <InputIcon

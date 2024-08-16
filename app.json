@@ -22,10 +22,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mipape281003.ContApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4792fe6e-8f59-4b20-b63b-9b4609ef7a30"
+      }
+    },
+    "owner": "mipape281003"
   }
 }

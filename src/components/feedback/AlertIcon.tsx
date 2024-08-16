@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Animated, StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { SettingsContext } from "../../context";
@@ -41,7 +41,6 @@ export const AlertIcon = ({ show, setShow, title, text, type, style }: Props) =>
     };
 
     const { iconColor, bodyColor, iconName } = typeColors[type];
-
     Animated.timing(scaleValue, {
         toValue: show ? 1 : 0,
         duration: 120,
@@ -58,7 +57,7 @@ export const AlertIcon = ({ show, setShow, title, text, type, style }: Props) =>
                 localStyles.container,
                 {
                     transform: [{ scale: scaleValue }],
-                    backgroundColor: bodyColor
+                    backgroundColor: bodyColor,
                 },
                 style,
             ]}
@@ -92,7 +91,9 @@ const localStyles = StyleSheet.create({
         padding: 16,
         elevation: 12,
 
-        position: "absolute", top: 200, zIndex: 9999
+        position: "absolute",
+        top: 10,
+        zIndex: 9999,
     },
     header: {
         width: "100%",
@@ -106,7 +107,7 @@ const localStyles = StyleSheet.create({
     closeButton: {
         width: "56%",
         justifyContent: "flex-end",
-        flexDirection: "row"
+        flexDirection: "row",
     }
 });
 

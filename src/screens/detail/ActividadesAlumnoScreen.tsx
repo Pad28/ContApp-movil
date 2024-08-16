@@ -1,32 +1,27 @@
 import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../../theme/globalStyles";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SettingsContext } from "../../context";
 
 export const ActividadesAlumnoScreen = () => {
     const [modal, setModal] = useState(false);
+    const { fontSize } = useContext(SettingsContext).settingsState;
+
     return (
-        <View style={{ flex: 1 }} >
-            <View style={globalStyles.container} >
-                <KeyboardAvoidingView>
-                    <ScrollView showsHorizontalScrollIndicator={false} >
+        <View style={globalStyles.container} >
+            <KeyboardAvoidingView>
+                <ScrollView showsHorizontalScrollIndicator={false} >
 
-                    <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                            Actividades
-                        </Text>
-                        <Text style={{margin:15, fontSize:20, alignSelf:'center'}}>
-                            ¡Contesta lo siguiente!
-                        </Text>
-                        
-                        
+                    <Text style={[globalStyles.title, { alignSelf: "center", fontSize: fontSize + 6 }]}>
+                        Actividades
+                    </Text>
+                    <Text style={{ margin: 15, fontSize: 20, alignSelf: 'center' }}>
+                        No tienes actividades Pendientes! :D
+                    </Text>
 
-                        
-
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </View>
-
-
     );
 }
 

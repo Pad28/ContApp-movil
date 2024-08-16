@@ -6,7 +6,7 @@ export const colors = {
     primary: "#74022d", //Vino
     backgroundPrimary: "#FEF9D1", //Cremita
     backgroundSecondary: "#FEFEFD",
-    buttonPrimary: "#74022d", //Vino boton
+    buttonPrimary: "#123456", //boton azul
     buttonAccept: "#009929", //Verde
     buttonCancel: "#E83131", //Rojo
     danger: "#881337",
@@ -24,5 +24,9 @@ export const globalStyles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: colors.backgroundPrimary,
+    },
+    title: {
+        marginVertical: 18,
+        fontWeight: "bold",
     },
 });

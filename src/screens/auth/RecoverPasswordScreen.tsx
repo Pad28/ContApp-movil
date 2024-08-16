@@ -29,13 +29,7 @@ export const RecoverPasswordScreen = () => {
         <View style={[globalStyles.container]}>
             <KeyboardAvoidingView>
                 <ScrollView>
-                    <AlertIcon
-                        setShow={setShowErrorAlert}
-                        text={alert.response ? alert.message : messageError}
-                        title={alert.response ? alert.title : "Error"}
-                        type={alert.response ? "info" : "error"}
-                        show={showErrorAlert}
-                    />
+
                     <Text style={{ margin: 20, fontSize }}>
                         Por favor, ingresa la información que se solicita:
                     </Text>
@@ -46,10 +40,19 @@ export const RecoverPasswordScreen = () => {
                         style={{ alignSelf: "center", marginVertical: 30 }}
                     />
 
+                    <AlertIcon
+                        style={{ top: 200 }}
+                        setShow={setShowErrorAlert}
+                        text={alert.response ? alert.message : messageError}
+                        title={alert.response ? alert.title : "Error"}
+                        type={alert.response ? "info" : "error"}
+                        show={showErrorAlert}
+                    />
+
                     <Button
                         onPress={handleRequest}
                         text="Recuperar"
-                        style={{ alignSelf: "center", marginTop: 160 }}
+                        style={{ alignSelf: "center", marginTop: 120 }}
                     />
 
                 </ScrollView>
