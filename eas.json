@@ -10,7 +10,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://0b5a-159-54-132-23.ngrok-free.app"
+        "EXPO_PUBLIC_API_URL": "http://isistemas.upt.edu.mx:22288"
       }
     },
     "production": {}

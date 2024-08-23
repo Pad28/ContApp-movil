@@ -26,7 +26,13 @@ export const LabelButtonIcon = ({ style, onPress, text, iconName, label }: Props
                 style={styles.boton}
             >
                 <View style={{ ...styles.columnBoton, justifyContent: 'flex-start' }} >
-                    <Text style={{ ...styles.text, fontSize: fontSize }} > {text} </Text>
+                    <Text
+                        style={{ ...styles.text, fontSize: fontSize }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                    >
+                        {text}
+                    </Text>
                 </View>
                 <View style={{ ...styles.columnBoton, justifyContent: 'flex-end' }} >
                     <Ionicons style={{ color: "white" }} name={iconName} size={28} />
@@ -56,11 +62,13 @@ const styles = StyleSheet.create({
     columnBoton: {
         width: '50%',
         flexDirection: 'row',
+        overflow: "hidden",
     },
     text: {
         fontWeight: 'bold',
         color: 'white',
-        textAlign: "right"
+        textAlign: "right",
+        overflow: "hidden"
     },
     label: {
         fontWeight: 'bold',

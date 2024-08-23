@@ -12,7 +12,7 @@ export type RootLoginStackParams = {
     LoginScreen: undefined;
     RecoverPasswordScreen: undefined;
     AlumnoBottomTabNavigator: undefined;
-}   
+}
 
 const Stack = createStackNavigator<RootLoginStackParams>();
 export const LoginStackNavigator = () => {
@@ -24,8 +24,8 @@ export const LoginStackNavigator = () => {
                 cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                 header: ({ navigation, options, route }) => (
                     <HeaderNav
-                        buttonBack={ route.name === "RecoverPasswordScreen" }
-                        onPressButtonBack={() => navigation.pop()} 
+                        buttonBack={route.name === "RecoverPasswordScreen"}
+                        onPressButtonBack={() => navigation.pop()}
                         height={120}
                         title={options.title}
                     />
@@ -34,27 +34,27 @@ export const LoginStackNavigator = () => {
         >
             {(!islogged) ? (
                 <>
-                <Stack.Screen 
-                    options={{ title: "Inicio de sesión" }}
-                    name="LoginScreen"
-                    component={LoginScreen}
-                />
+                    <Stack.Screen
+                        options={{ title: "Inicio de sesión" }}
+                        name="LoginScreen"
+                        component={LoginScreen}
+                    />
 
-                <Stack.Screen 
-                    options={{ title: "Recuperar Contraseña" }}
-                    name="RecoverPasswordScreen"
-                    component={RecoverPasswordScreen}
-                />
+                    <Stack.Screen
+                        options={{ title: "Recuperar Contraseña" }}
+                        name="RecoverPasswordScreen"
+                        component={RecoverPasswordScreen}
+                    />
                 </>
             ) : (
-                <Stack.Screen 
-                    options={{ 
-                        headerShown: false, 
+                <Stack.Screen
+                    options={{
+                        headerShown: false,
                         cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
                     }}
                     name="AlumnoBottomTabNavigator"
                     component={AlumnoBottomTabNavigator}
-                />  
+                />
             )}
 
         </Stack.Navigator>
@@ -71,19 +71,19 @@ interface HeaderNavProps {
 
 const HeaderNav = ({ height, buttonBack, onPressButtonBack, title }: HeaderNavProps) => {
     const { fontSize } = useContext(SettingsContext).settingsState;
-    
+
     return (
         <View style={[localStyles.containerHeaderNav, { height }]}>
-            <ExpoStatusBar backgroundColor={colors.primary} style="light"  />
+            <ExpoStatusBar backgroundColor={colors.primary} style="light" />
             {(buttonBack) && (
-                <TouchableOpacity 
-                    onPress={onPressButtonBack} 
+                <TouchableOpacity
+                    onPress={onPressButtonBack}
                     style={{
                         justifyContent: "center",
-                    }}  
+                    }}
                 >
-                    <Ionicons 
-                        name="chevron-back" 
+                    <Ionicons
+                        name="chevron-back"
                         color={"white"}
                         size={40}
                         style={{ marginLeft: 10, marginTop: 12 }}
@@ -91,7 +91,7 @@ const HeaderNav = ({ height, buttonBack, onPressButtonBack, title }: HeaderNavPr
                 </TouchableOpacity>
             )}
             {(title) && (
-                <Text style={[ localStyles.text, { fontSize: fontSize + 4 } ]} >
+                <Text style={[localStyles.text, { fontSize: fontSize + 4 }]} >
                     {title}
                 </Text>
             )}

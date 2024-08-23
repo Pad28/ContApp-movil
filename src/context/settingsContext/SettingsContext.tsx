@@ -2,6 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { settingsReducer } from "./SetttingsReducer";
 import { SettingsStorageKeys } from "../../config";
+import { Alert } from "react-native";
 
 // Como se ve el estado de los ajustes
 export interface SettingsState {
@@ -12,49 +13,50 @@ export interface SettingsState {
 }
 
 // Estado inicial del contexto de ajustes
-export const settingsInitialState: SettingsState  = {
-    fontSize: 22,
-    fontSizeMax: 26,
-    fontSizeMin: 14,
+export const settingsInitialState: SettingsState = {
+    fontSize: 20,
+    fontSizeMax: 24,
+    fontSizeMin: 16,
     developmentSettings: false,
 }
 
 // Como se ve el objeto que sera servido por el contexto de ajustes
 export interface SettingsContextProps {
-    settingsState:  SettingsState; // Atributos que contiene el contexto de ajustes
+    settingsState: SettingsState; // Atributos que contiene el contexto de ajustes
     changeFontSize: (incrementer: number) => void; // Cambiar el tamaño de la letra, recibe como argumento el incremento que tendra el tamaño
     changeDevelopmentSettings: (state: boolean) => void; // Cambiar el valor de las opciones de desarrollador
 }
 
 export const SettingsContext = createContext({} as SettingsContextProps);
-export const SettingsProvider = ({children}: { children: React.JSX.Element | React.JSX.Element[] }) => {
-    const [ settingsState, dispatch ] = useReducer(settingsReducer, settingsInitialState);
+export const SettingsProvider = ({ children }: { children: React.JSX.Element | React.JSX.Element[] }) => {
+    const [settingsState, dispatch] = useReducer(settingsReducer, settingsInitialState);
 
     useEffect(() => {
         checkSettings();
     }, []);
 
     // Verificar los ajustes previamente guardados por el usuario
-    const checkSettings = async() => {
+    const checkSettings = async () => {
         const fontSize = await AsyncStorage.getItem(SettingsStorageKeys.FONT_SIZE);
-        if(fontSize) changeFontSize(parseInt(fontSize));
+        if (fontSize) dispatch({ type: "changeFontSize", payload: parseInt(fontSize) })
 
         const devSettings = await AsyncStorage.getItem(SettingsStorageKeys.DEVELOPMENT_SETTINGS);
-        if(devSettings) changeDevelopmentSettings( devSettings == "true" );
+        if (devSettings) dispatch({ type: "changeDevelopmentSettings", payload: devSettings === "true" });
     }
 
     // Implementación de la fucion de cambio de tamaño de letra definida en la interfaz SettingsContextProps
-    const changeFontSize = async(incrementer: number) => {
-        const size = settingsState.fontSize + incrementer;
-        if(size >= settingsState.fontSizeMax || size <= settingsState.fontSizeMin) return;
-        await AsyncStorage.setItem(SettingsStorageKeys.FONT_SIZE, size.toString());
+    const changeFontSize = async (increment: number) => {
+        let size = settingsState.fontSize + increment;
+        size = (size >= settingsState.fontSizeMax) ? settingsInitialState.fontSizeMax : size;
+        size = (size <= settingsState.fontSizeMin) ? settingsInitialState.fontSizeMin : size;
         dispatch({ type: "changeFontSize", payload: size });
+        await AsyncStorage.setItem(SettingsStorageKeys.FONT_SIZE, size.toString());
     }
 
     // Implementación de la fucion de activacion/desactivacion de opciones de desarrollador definida en la interfaz SettingsContextProps
-    const changeDevelopmentSettings = async(state: boolean) => {
-        await AsyncStorage.setItem(SettingsStorageKeys.DEVELOPMENT_SETTINGS, state + "");
+    const changeDevelopmentSettings = async (state: boolean) => {
         dispatch({ type: "changeDevelopmentSettings", payload: state });
+        await AsyncStorage.setItem(SettingsStorageKeys.DEVELOPMENT_SETTINGS, state + "");
     }
 
     return (

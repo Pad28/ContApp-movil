@@ -1,113 +1,111 @@
-import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { globalStyles } from "../../theme/globalStyles";
-import { useContext, useState } from "react";
-import { SettingsContext } from "../../context";
+import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { colors, globalStyles } from "../../theme/globalStyles";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext, SettingsContext } from "../../context";
+import { Target } from "../../components";
+import { useRequestGet } from "../../hooks";
+import { GetActividadesResponse } from "../../interfaces/GetActividadesResponse";
+import { FlatList } from "react-native-gesture-handler";
+import { StackScreenProps } from "@react-navigation/stack";
+import { ActividadesStackParams } from "../../navigators/stack/ActividadesStackNavigator";
 
-export const ActividadesAlumnoScreen = () => {
+
+interface Props extends StackScreenProps<ActividadesStackParams, any> { }
+export const ActividadesAlumnoScreen = ({ navigation }: Props) => {
     const [modal, setModal] = useState(false);
     const { fontSize } = useContext(SettingsContext).settingsState;
+    const { userAuthenticated, token } = useContext(AuthContext).authState;
+    const [results, setResults] = useState<GetActividadesResponse>();
+
+    const {
+        setIsLoading,
+        isLoading,
+        messageError,
+        requestGet,
+        requestGetAlert
+    } = useRequestGet();
+
+    const handleRquest = async () => {
+        requestGet({
+            path: "/api/actividad",
+            config: {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+        })
+            .then(res => {
+                setResults(res as GetActividadesResponse);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false)
+            });
+    }
+
+    useEffect(() => {
+        handleRquest();
+    }, []);
 
     return (
         <View style={globalStyles.container} >
             <KeyboardAvoidingView>
-                <ScrollView showsHorizontalScrollIndicator={false} >
+                {(isLoading) ? (
+                    <ActivityIndicator
+                        size={80}
+                        color={colors.buttonPrimary}
+                        style={{ marginTop: 100 }}
+                    />
+                ) : (
+                    <View>
+                        <Text style={[globalStyles.title, { alignSelf: "center", fontSize: fontSize + 6 }]}>
+                            Actividades
+                        </Text>
+                        {(!results) ? (
+                            <Text style={{ margin: 15, fontSize: 20, alignSelf: 'center' }}>
+                                No tienes actividades Pendientes! :D
+                            </Text>
+                        ) : (
+                            <FlatList
+                                style={{ height: "100%" }}
+                                keyExtractor={item => item.id}
+                                data={results?.results}
+                                renderItem={({ item }) => (
+                                    <Target
+                                        style={{ backgroundColor: colors.info700, marginVertical: 10 }}
+                                        description="Fecha de entrega"
+                                        footer={item.fecha_limite.toString().split('T')[0]}
+                                        iconName="pencil"
+                                        onPress={() => navigation.navigate("PreguntasScreen", { idActividad: item.id })}
+                                        title={item.nombre}
+                                    />
+                                )}
+                            />
+                        )}
 
-                    <Text style={[globalStyles.title, { alignSelf: "center", fontSize: fontSize + 6 }]}>
-                        Actividades
-                    </Text>
-                    <Text style={{ margin: 15, fontSize: 20, alignSelf: 'center' }}>
-                        No tienes actividades Pendientes! :D
-                    </Text>
+                        <View style={{ height: 100 }} />
+                    </View>
+                )}
 
-                </ScrollView>
+
+
             </KeyboardAvoidingView>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    image: {
-        width: 160,
-        height: 160,
-        borderRadius: 30,
+const localStyles = StyleSheet.create({
+    botonContaier: {
+        backgroundColor: colors.buttonPrimary,
+        width: 260,
+        borderRadius: 10,
+        paddingHorizontal: 18,
+        paddingVertical: 12,
         alignSelf: "center",
     },
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22,
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-    },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
-    },
-    buttonClose: {
-        backgroundColor: 'blue',
-        width: 100,
-        height: 70
-    },
-    buttonInclusivo: {
-        backgroundColor: 'red',
-        width: 180,
-        height: 120
-    },
-    textStyleBienvenido: {
-        color: 'green',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        borderWidth: 4,
-        borderColor: "black",
-        borderRadius: 12,
-        backgroundColor: "white",
-        padding: 5
-    },
-    textStyle: {
-        color: 'green',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        fontSize: 20,
-        padding: 10,
-        paddingLeft: 50,
-        paddingRight: 50,
-        fontStyle: "italic"
-    },
-    textStyle2: {
-        color: 'green',
-        fontWeight: 'bold',
-        textAlign: 'justify',
-        fontSize: 20,
-        padding: 10,
-        paddingLeft: 50,
-        paddingRight: 50,
-        fontStyle: "italic"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-    },
-})
-
-
-
-
-0
+    botonText: {
+        color: "white"
+    }
+});

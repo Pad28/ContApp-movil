@@ -1,5 +1,15 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
     "name": "ContApp",
     "slug": "ContApp",
     "version": "1.0.0",
@@ -11,10 +21,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "pluguins": [
-      "@config-plugins/react-native-blob-util",
-      "@config-plugins/react-native-pdf"
-    ],
     "ios": {
       "supportsTablet": true
     },

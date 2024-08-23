@@ -1,108 +1,154 @@
-import { KeyboardAvoidingView, Text, View } from "react-native";
-import { globalStyles } from "../../theme/globalStyles";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context";
+import { ActivityIndicator, KeyboardAvoidingView, Text, View } from "react-native";
+import { colors, globalStyles } from "../../theme/globalStyles";
 import { ScrollView } from "react-native-gesture-handler";
-import { Alert, Button, InputIcon, LabelButtonIcon } from "../../components";
+import { Alert, AlertIcon, Button, Increaser, LabelButtonIcon, Separador } from "../../components";
 import { ModalInput } from "../../components/inputs/ModalInput";
+import { useSettingsScreen } from "../../hooks/screens/useSettingsScreen";
+
 
 export const SettingsScreen = () => {
-    const { logOut } = useContext(AuthContext);
-    const [showAlert, setShowAlert] = useState(false);
-    const [nombreModal, setNombreModal] = useState(false);
-    const [apellidosModal, setApellidosModal] = useState(false);
-    const [passwordModal, setPasswordModal] = useState(false);
+    const {
+        userAuthenticated,
+        setSelectModal,
+        selectModal,
+        settingsState,
+        changeFontSize,
+        changeDevelopmentSettings,
+        authState,
+        handleRequestPut,
+        onChange,
+        logOut,
+        isLoading,
+        messageError,
+        showErrorAlert,
+        alert,
+        setShowErrorAlert,
+        handleRecoverPassword,
+    } = useSettingsScreen();
+
+
     return (
-        <View style={globalStyles.container} >
+        <View style={[globalStyles.container, { paddingTop: 20 }]} >
             <KeyboardAvoidingView>
                 <ScrollView>
+                    {(isLoading) ? (
+                        <ActivityIndicator
+                            color={colors.buttonPrimary}
+                            size={80}
+                            style={{ marginTop: 100 }}
+                        />
+                    ) : (
+                        <>
+                            <LabelButtonIcon
+                                label="Nombre:"
+                                text={userAuthenticated.nombre}
+                                iconName="pencil"
+                                onPress={() => setSelectModal("nombre")}
+                                style={{ marginTop: 30 }}
+                            />
+                            <LabelButtonIcon
+                                label="Apellidos:"
+                                text={userAuthenticated.apellidos}
+                                iconName="pencil"
+                                onPress={() => setSelectModal("apellido")}
+                                style={{ marginTop: 30 }}
+                            />
 
-                    <LabelButtonIcon
-                        label="Nombre:"
-                        text={"Yahir"}
-                        iconName="pencil"
-                        onPress={() => setNombreModal(true)}
-                        style={{ marginTop: 30 }}
-                    />
-                    <LabelButtonIcon
-                        label="Apellido:"
-                        text={"Gutierre Cano"}
-                        iconName="pencil"
-                        onPress={() => setApellidosModal(true)}
-                        style={{ marginTop: 30 }}
-                    />
-                    <LabelButtonIcon
-                        label="Contraseña:"
-                        text={'*********'}
-                        iconName="pencil"
-                        onPress={() => setPasswordModal(true)}
-                        style={{ marginTop: 30 }}
-                    />
+                            <Button
+                                onPress={() => handleRecoverPassword()}
+                                text="Enviar correo de cambio de contraseña"
+                                style={{
+                                    alignSelf: "center",
+                                    backgroundColor: colors.info700,
+                                    marginVertical: 22
+                                }}
+                            />
 
-                    <View
-                        style={{
-                            width: "100%",
-                            alignSelf: 'center',
-                            borderTopWidth: 1,
-                            borderColor: 'gray',
-                            marginTop: 30,
-                        }}
-                    />
+                            {(showErrorAlert) && (
+                                <AlertIcon
+                                    style={{ marginTop: 100 }}
+                                    text={alert.success ? alert.message : messageError}
+                                    setShow={setShowErrorAlert}
+                                    show={showErrorAlert}
+                                    title={alert.success ? alert.title : "Error"}
+                                    type={alert.success ? alert.type : "error"}
+                                />
+                            )}
+                            <Separador />
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-around",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text style={[{ fontSize: settingsState.fontSize }]} >Tamaño de texto:</Text>
+                                <Increaser
+                                    value={settingsState.fontSize}
+                                    onPressPlus={() => changeFontSize(+1)}
+                                    onPressRest={() => changeFontSize(-1)}
+                                />
+                            </View>
+                            <Separador />
 
+                            {(settingsState.developmentSettings) && (
+                                <View>
+                                    <Text> {JSON.stringify(authState, null, 2)} </Text>
+                                    <Text> {JSON.stringify(settingsState, null, 2)} </Text>
+                                    <Button
+                                        onPress={() => changeDevelopmentSettings(false)}
+                                        text="Ocultar"
+                                        style={{ alignSelf: "center" }}
+                                    />
+                                    <Separador />
+                                </View>
+                            )}
 
-                    <Button
-                        style={{ alignSelf: "center", marginVertical: 10 }}
-                        onPress={() => setShowAlert(true)}
-                        text="Cerrar sesión"
-                    />
+                            <Button
+                                style={{ alignSelf: "center", marginVertical: 10 }}
+                                onPress={() => setSelectModal("cerrar-sesion")}
+                                text="Cerrar sesión"
+                            />
+
+                        </>
+                    )}
 
                     <ModalInput
                         iconName="pencil"
-                        onChangeText={value => { }}
+                        onChangeText={value => onChange(value, "nombre")}
                         placeHolder={"Nombre"}
-                        setShowModal={setNombreModal}
-                        showModal={nombreModal}
+                        showModal={selectModal === "nombre"}
+                        onPressCancel={() => setSelectModal("")}
                         onPressAceptar={() => {
-                            setNombreModal(false);
-                            //handlePeticion({ nombre: form.nombre })
+                            setSelectModal("");
+                            handleRequestPut();
                         }}
+
                     />
 
                     <ModalInput
                         iconName="pencil"
-                        onChangeText={value => { }}
-                        placeHolder={"apellidos"}
-                        setShowModal={setApellidosModal}
-                        showModal={apellidosModal}
+                        onChangeText={value => onChange(value, "apellidos")}
+                        placeHolder={"Apellido"}
+                        showModal={selectModal === "apellido"}
+                        onPressCancel={() => setSelectModal("")}
                         onPressAceptar={() => {
-                            setApellidosModal(false);
-                            //handlePeticion({ apellidos: form.apellidos })
-                        }}
-                    />
-
-                    <ModalInput
-                        iconName="pencil"
-                        onChangeText={value => { }}
-                        placeHolder={'********'}
-                        setShowModal={setPasswordModal}
-                        showModal={passwordModal}
-                        security={true}
-                        onPressAceptar={() => {
-                            setPasswordModal(false);
-                            //handlePeticion({ password: form.password })
+                            setSelectModal("");
+                            handleRequestPut();
                         }}
                     />
 
                     <Alert
-                        visible={showAlert}
+                        visible={selectModal === "cerrar-sesion"}
                         onPressAccept={() => {
-                            setShowAlert(false);
+                            setSelectModal("");
                             logOut();
                         }}
-                        onPressCancel={() => setShowAlert(false)}
+                        onPressCancel={() => setSelectModal("")}
                         text="¿Desea cerrar sesión?"
                     />
 
+                    <View style={{ height: 300 }} />
                 </ScrollView>
             </KeyboardAvoidingView>
         </View>

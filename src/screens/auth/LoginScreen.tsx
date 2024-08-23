@@ -55,7 +55,7 @@ export const LoginScreen = ({ navigation }: Props) => {
             style={{ marginTop: 30 }}
             iconName="person"
             onChangeText={(value) => onChange(value, "matricula")}
-            placeholder="Matricula"
+            placeholder="Matrícula"
           />
 
           <InputIcon
@@ -69,7 +69,7 @@ export const LoginScreen = ({ navigation }: Props) => {
           <LinkButton
             style={{ alignSelf: "center", marginTop: 14 }}
             onPress={() => navigation.navigate("RecoverPasswordScreen")}
-            text="¿Olvidate tu contraseña?"
+            text="¿Olvidaste tu contraseña?"
           />
 
           <Button

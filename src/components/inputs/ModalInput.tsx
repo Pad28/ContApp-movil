@@ -11,14 +11,14 @@ interface Props {
     placeHolder: string;
     value?: string;
     onChangeText: (value: string) => void;
-    setShowModal: (value: boolean) => void;
     onPressAceptar: () => void;
+    onPressCancel?: () => void;
     security?: boolean;
 }
 
 export const ModalInput = (props: Props) => {
     const {
-        iconName, onChangeText, placeHolder, showModal, setShowModal, onPressAceptar, value, security = false
+        iconName, onChangeText, placeHolder, showModal, onPressAceptar, onPressCancel, value, security = false
     } = props;
 
     return (
@@ -38,8 +38,8 @@ export const ModalInput = (props: Props) => {
                         text="Cancelar"
                         textStyle={{ color: "white" }}
                         onPress={() => {
-                            setShowModal(false);
                             onChangeText('');
+                            (onPressCancel) && onPressCancel();
                         }}
                     />
 

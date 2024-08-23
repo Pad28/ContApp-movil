@@ -6,15 +6,16 @@ interface Props {
     iconName: string;
     onPress: () => void;
     style?: StyleProp<ViewStyle>;
+    iconSize?: number
 }
 
-export const IconButton = ({ iconName, onPress, style }: Props) => {
+export const IconButton = ({ iconName, onPress, style, iconSize = 50 }: Props) => {
     return (
         <TouchableOpacity
             style={[localStyles.container, style]}
             onPress={onPress}
         >
-            <Ionicons name={iconName} size={50} color={"white"} />
+            <Ionicons name={iconName} size={iconSize} color={"white"} />
         </TouchableOpacity>
     );
 }

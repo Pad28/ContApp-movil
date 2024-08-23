@@ -14,7 +14,7 @@ export const RecoverPasswordScreen = () => {
         messageError,
         setShowErrorAlert,
         showErrorAlert,
-        alert
+        alert,
     } = useRecoverPasswordScreen();
 
     if (isLoading) {
@@ -36,7 +36,7 @@ export const RecoverPasswordScreen = () => {
                     <InputIcon
                         iconName="person"
                         onChangeText={value => onChange(value, "matricula")}
-                        placeholder="Matricula"
+                        placeholder="Matrícula"
                         style={{ alignSelf: "center", marginVertical: 30 }}
                     />
 

@@ -6,3 +6,6 @@ export * from "./feedback/Alert";
 export * from "./feedback/AlertIcon";
 export * from "./buttons/LabelButtinIcon";
 export * from "./inputs/InputIcon";
+export * from "./buttons/Target";
+export * from "./views/Separador";
+export * from "./buttons/Increaser";

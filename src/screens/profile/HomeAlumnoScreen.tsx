@@ -17,7 +17,6 @@ export const HomeAlumnoScreen = () => {
         );
     }
 
-
     return (
         <View style={globalStyles.container}>
             <Text style={[globalStyles.title, { fontSize: fontSize + 6 }]} >
@@ -29,7 +28,6 @@ export const HomeAlumnoScreen = () => {
         </View >
     );
 }
-
 
 const localStyles = StyleSheet.create({
     containerPdf: {

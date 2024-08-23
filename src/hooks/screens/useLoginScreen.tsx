@@ -18,6 +18,7 @@ export const useLoginScreen = () => {
     showErrorAlert,
     setShowErrorAlert,
     messageError,
+    clearValues
   } = useRequestPost({ matricula: "", password: "" });
 
   useEffect(() => {
@@ -41,7 +42,8 @@ export const useLoginScreen = () => {
         const { user, token } = (result as UserAuthenticated);
         logIn(user, token);
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .finally(clearValues);
   }
 
   const authenticate = async () => {
