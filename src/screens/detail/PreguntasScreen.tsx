@@ -1,5 +1,5 @@
-import { Text, View } from "react-native";
-import { globalStyles } from "../../theme/globalStyles";
+import { ActivityIndicator, Text, View } from "react-native";
+import { colors, globalStyles } from "../../theme/globalStyles";
 import { useRequestGet } from "../../hooks";
 import { useContext, useEffect } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -13,9 +13,8 @@ export const PreguntasScreen = ({ route }: Props) => {
 
     useEffect(() => {
         const { params } = route;
-        throw "BAD RESPONSE";
         requestGetAlert({
-            path: `/api/actividad/${params!.idActividad}.`,
+            path: `/api/actividad/${params!.idActividad}`,
             config: {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -29,7 +28,11 @@ export const PreguntasScreen = ({ route }: Props) => {
 
     return (
         <View style={globalStyles.container} >
-            <Text>Cuestion</Text>
+            <ActivityIndicator
+                color={colors.backgroundPrimary}
+                style={{ alignSelf: "center", marginTop: 100 }}
+                size={100}
+            />
         </View>
     );
 }

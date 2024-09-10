@@ -10,7 +10,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "http://isistemas.upt.edu.mx:22288"
+        "EXPO_PUBLIC_API_URL": "http://159.54.132.23:8080"
       }
     },
     "production": {}
