@@ -4,7 +4,7 @@ import { PreguntasScreen } from "../../screens/detail/PreguntasScreen";
 
 export type ActividadesStackParams = {
     ActividadesAlumnoScreen: undefined;
-    PreguntasScreen: { idActividad: string };
+    PreguntasScreen: { idActividad: string, fechaLimite: string };
 }
 
 

@@ -109,8 +109,7 @@ export const AlumnoBottomTabNavigator = () => {
         options={{ title: "Recursos" }}
       />
       <Tab.Screen
-        name='ActividadesAlumnoScreen'
-        // component={ActividadesAlumnoScreen}
+        name="ActividadesAlumnoScreen"
         component={ActividadStackNavigator}
         options={{ title: 'Actividades' }}
       />

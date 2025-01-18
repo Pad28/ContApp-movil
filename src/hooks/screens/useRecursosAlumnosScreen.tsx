@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext, SettingsContext } from "../../context";
 import { useRequestGet } from "../requests/useRequestGet";
 import { GetRecursosResponse } from "../../interfaces/GetRecursosResponse";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
 import { envs } from "../../config";
-import { ToastAndroid } from "react-native";
-
+import { ToastAndroid, Platform } from "react-native";
+import { Buffer } from "buffer";
 
 export const useRecursosAlumnosScreen = () => {
     const { authState } = useContext(AuthContext);
@@ -14,68 +15,81 @@ export const useRecursosAlumnosScreen = () => {
 
     const [recursos, setRecursos] = useState<GetRecursosResponse>();
     const [show, setShow] = useState(false);
-    const [isLoadingPdf, setIsloadingPdf] = useState(false);
 
-    const [image, setImage] = useState<string>();
     const [id, setID] = useState<string>("");
-    const [page, setPage] = useState(1);
 
     useEffect(() => {
         (async () => {
-
             const result = await requestGetAlert({
                 path: `/api/publicacion/by-group-id/${authState.userAuthenticated!.id_grupo}`,
-                config: { headers: { Authorization: `Bearer ${authState.token}` } }
-            })
+                config: { headers: { Authorization: `Bearer ${authState.token}` } },
+            });
             setRecursos(result as GetRecursosResponse);
             setIsLoading(false);
         })();
-    }, [])
+    }, []);
 
-    useEffect(() => {
-        handleRequestPDf(id);
-    }, [page])
-
-
-    const handleRequestPDf = async (id_material: string) => {
+    const downloadAndOpenPdf = async (id_material: string) => {
         try {
-            setIsloadingPdf(true);
-            const url = `${envs.API_URL}/api/publicacion/document-to-image/${id_material}/${page}`;
-            const fileUri = FileSystem.documentDirectory + 'image.jpg';
-            await FileSystem.deleteAsync(fileUri, { idempotent: true });
-            const { uri, status } = await FileSystem.downloadAsync(url, fileUri, {
-                headers: { "Authorization": `Bearer ${authState.token!}` },
-            })
-
-            if (status >= 400) {
-                (page < 1) ? setPage(1) : setPage(page - 1);
-
-                ToastAndroid.show("No hay mas paginas disponibles", ToastAndroid.SHORT);
-                setIsloadingPdf(false);
-                return;
+            const fileUri = `${FileSystem.documentDirectory}${id_material}`;
+            const url = `${envs.API_URL}/api/publicacion/by-document-id/${id_material}`;
+    
+            // Realizar la solicitud para obtener el archivo PDF
+            const response = await fetch(url, {
+                headers: { Authorization: `Bearer ${authState.token}` },
+            });
+    
+            if (!response.ok) {
+                throw new Error("Error al descargar el archivo");
             }
-
-            setImage(uri + '?time=' + new Date().getTime());
-            setIsloadingPdf(false);
+    
+            const arrayBuffer = await response.arrayBuffer();
+            const base64 = Buffer.from(arrayBuffer).toString("base64");
+    
+            // Guardar el archivo en el sistema de archivos
+            await FileSystem.writeAsStringAsync(fileUri, base64, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+    
+            console.log("Archivo descargado en:", fileUri);
+    
+            if (Platform.OS === "android" || Platform.OS === "ios") {
+                const canOpen = await Sharing.isAvailableAsync();
+    
+                if (canOpen) {
+                    await Sharing.shareAsync(fileUri, {
+                        mimeType: "application/pdf",
+                        UTI: "com.adobe.pdf",
+                    });
+                } else {
+                    ToastAndroid.show(
+                        "No se puede compartir el archivo en este dispositivo",
+                        ToastAndroid.SHORT
+                    );
+                }
+            } else {
+                ToastAndroid.show(
+                    "Plataforma no soportada para abrir el archivo.",
+                    ToastAndroid.SHORT
+                );
+            }
         } catch (error) {
-            console.log(error);
-
+            console.error("Error durante la descarga o apertura:", error);
+            ToastAndroid.show("Error al descargar o abrir el archivo", ToastAndroid.SHORT);
         }
-    }
+    };
+    
+    
+
+    
 
     return {
-        handleRequestPDf,
         fontSize,
         isLoading,
         recursos,
         show,
         setShow,
-        isLoadingPdf,
-        image,
-        page,
-        setPage,
-        id,
+        downloadAndOpenPdf,
         setID,
-    }
-
-}
+    };
+};
